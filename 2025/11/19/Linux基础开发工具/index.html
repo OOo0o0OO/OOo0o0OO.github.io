@@ -126,7 +126,7 @@
 </ul>
 <!-- - ![1748252856439](image/基础开发工具/1748252856439.png) -->
 <ul>
-<li></li>
+<li><img src="/2025/11/19/Linux%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/1748252856439.png" class=""></li>
 </ul>
 </li>
 <li><p><strong>跨平台支持</strong>：</p>
@@ -812,7 +812,7 @@
 <li><code>Access</code>：常指的是文件最近一次被访问的时间。在 <code>Linux</code> 的早期版本中，每当文件被访问时，其 <code>atime</code> 都会更新。但这种机制会导致大量的 <code>IO</code> 操作。具体更新原则，此处不做深究</li>
 </ul>
 <!-- ![1749109535572](image/基础开发工具/1749109535572.png) -->
-
+<img src="/2025/11/19/Linux%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/1749109535572.png" class="">
 <p><code>.PHONY</code> :让 <code>make</code> 忽略源文件和可执行目标文件的 <code>M</code> 时间对比</p>
 <h4 id="4-2-推导过程"><a href="#4-2-推导过程" class="headerlink" title="4.2 推导过程"></a>4.2 推导过程</h4><figure class="highlight makefile"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">Hello:Hello.o</span></span><br><span class="line">    gcc Hello.o -o Hello</span><br><span class="line"><span class="section">Hello.o:Hello.s</span></span><br><span class="line">    gcc -c Hello.s -o Hello.o</span><br><span class="line"><span class="section">Hello.s:Hello.i</span></span><br><span class="line">    gcc -S Hello.i -o Hello.s</span><br><span class="line"><span class="section">Hello.i:Hello.c</span></span><br><span class="line">    gcc -E Hello.c -o Hello.i</span><br><span class="line"><span class="meta"><span class="keyword">.PHONY</span>:clean</span></span><br><span class="line"><span class="section">clean:</span></span><br><span class="line">    rm -f *.i *.s *.o Hello</span><br></pre></td></tr></table></figure>
 <p>编译</p>
@@ -826,7 +826,7 @@
 <li>如果 <code>Hello</code> 所依赖的 <code>Hello.o</code> 文件不存在，那么 <code>make</code> 会在当前文件中找目标为 <code>Hello.o</code> 文件的依赖性，如果找到则再根据对应的规则生成 <code>Hello.o</code> 文件(类似于堆栈的过程)</li>
 </ol>
 <!-- ![1749110542082](image/基础开发工具/1749110542082.png) -->
-
+<img src="/2025/11/19/Linux%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/1749110542082.png" class="">
 <ol start="5">
 <li><code>C</code> 文件和 <code>H</code> 文件是存在的，于是 <code>make</code> 就会生成 <code>Hello.o</code> 文件，然后再调用 <code>Hello.o</code> 文件声明的终极任务，也就是生成执行文件 <code>Hello</code></li>
 <li>这就是 <code>make</code> 的依赖性，<code>make</code> 会一层一层的找文件的依赖关系，直到最终编译出目标文件</li>
@@ -998,7 +998,7 @@
 </ol>
 <p>缓冲区工作流程</p>
 <!-- ![1752669629256](image/基础开发工具/1752669629256.png) -->
-
+<img src="/2025/11/19/Linux%E5%9F%BA%E7%A1%80%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/1752669629256.png" class="">
 
 <h4 id="5-3-倒计时程序"><a href="#5-3-倒计时程序" class="headerlink" title="5.3 倒计时程序"></a>5.3 倒计时程序</h4><p>下面基于上面所介绍的内容，实现一个简易的倒计时程序</p>
 <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// countdown.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> count = <span class="number">10</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;倒计时开始\n&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span>(count)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\r[ %2d ]&quot;</span>, count);</span><br><span class="line">        fflush(<span class="built_in">stdout</span>);</span><br><span class="line">        sleep(<span class="number">1</span>);</span><br><span class="line">        count--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n倒计时结束!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
