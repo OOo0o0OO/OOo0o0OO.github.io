@@ -1,0 +1,1990 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, shrink-to-fit=no">
+    <meta name="referrer" content="origin">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <title>
+        
+            初识进程-概念
+        
+    </title>
+    <link rel="shortcut icon" href="#"/>
+
+    <link type="text/css" rel="stylesheet" href="/font/LongCang.css">
+    <link type="text/css" rel="stylesheet" href="/font/Monda.css">
+    <link type="text/css" rel="stylesheet" href="/font/NotoSansSC.css">
+    <link type="text/css" rel="stylesheet" href="/font/NotoSerifSC.css">
+    <link type="text/css" rel="stylesheet" href="/font/Playball.css">
+    <link type="text/css" rel="stylesheet" href="/font/PTMono.css">
+    <link type="text/css" rel="stylesheet" href="/font/Roboto.css">
+    <link type="text/css" rel="stylesheet" href="/font/RobotoSlab.css">
+    <link type="text/css" rel="stylesheet" href="/font/Rosario.css">
+    <link type="text/css" rel="stylesheet" href="/font/UbuntuMono.css">
+
+    <link type="text/css" rel="stylesheet" href="/css/base.css">
+    <link type="text/css" rel="stylesheet" href="/css/code.css">
+
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+<meta name="generator" content="Hexo 8.1.1"></head>
+<body>
+    <a id="cover"></a>
+    <link type="text/css" rel="stylesheet" href="/css/post.css">
+<div id="header" class="header">
+    <div class="vertical">
+        <div class="inner">
+            
+                <h1 class="header-subtitle">初识进程-概念</h1>
+                <div class="header-subinfo">
+                    <p class="article-info-text">
+                        <span>
+                            <i class="iconfont icon-time"></i> 发表时间：2025-11-22
+                        </span>
+                        
+                            
+                                <span id="/2025/11/22/初识进程-概念/" class="leancloud_visitors" data-flag-title="初识进程-概念">
+                                    <i class="iconfont icon-browse"></i> 阅读：<sapn class="leancloud-visitors-count"></span>
+                                </span>
+                            
+                            
+                                <span>
+                                    <i class="iconfont icon-interactive"></i> 评论：<span class="valine-comment-count" data-xid="/2025/11/22/初识进程-概念/"></span>
+                                </span>
+                              
+                        
+                    </p>
+                    
+                    
+                </div>
+            
+        </div>
+    </div>
+    
+</div>
+<div id="container">
+    
+        <!-- 文章页面 -->
+        <div id="article">
+            <div class="toc"></div>
+            <div class="article-body">
+                <meta name="referrer" content="no-referrer"/>
+
+
+<h2 id="进程概念"><a href="#进程概念" class="headerlink" title="进程概念"></a>进程概念</h2><h3 id="1-冯诺依曼体系结构"><a href="#1-冯诺依曼体系结构" class="headerlink" title="1. 冯诺依曼体系结构"></a>1. 冯诺依曼体系结构</h3><p>冯诺依曼体系结构(<code>Von Neumann Architecture</code>)由美籍匈牙利科学家<strong>约翰·冯·诺依曼</strong>在 <code>1945</code> 年提出。其核心思想是将<strong>程序指令和数据存储在同一存储器中</strong>，并通过同一总线传输。这一设计奠定了当代几乎所有通用计算机的基础</p>
+<!-- ![1749126204602](image/进程概念/1749126204602.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749126204602.png" class="">
+<p><strong>核心五大组成部分</strong>：</p>
+<ol>
+<li><p><strong>中央处理器（CPU）</strong></p>
+<ul>
+<li><strong>运算器（ALU）</strong>：执行算术和逻辑运算</li>
+<li><strong>控制器（CU）</strong>：从内存读取指令，解码并协调各部件工作</li>
+</ul>
+</li>
+<li><p><strong>存储器（Memory）</strong></p>
+<ul>
+<li><strong>统一存储程序和数据</strong>：指令（程序）和操作数（数据）以二进制形式存放在同一内存中，按地址访问</li>
+</ul>
+</li>
+<li><p><strong>输入设备（Input）</strong></p>
+<ul>
+<li>将程序和数据输入计算机（如键盘、鼠标）</li>
+</ul>
+</li>
+<li><p><strong>输出设备（Output）</strong></p>
+<ul>
+<li>将处理结果呈现给用户（如显示器、打印机）</li>
+</ul>
+</li>
+<li><p><strong>总线（Bus）</strong></p>
+<ul>
+<li><strong>数据&#x2F;地址&#x2F;控制总线</strong>：在部件间传输信息（指令、数据、控制信号）</li>
+</ul>
+</li>
+</ol>
+<p>注：</p>
+<ul>
+<li>这里的存储器指的是内存</li>
+<li>不考虑缓存情况，这里的 <code>CPU</code> 能且只能对内存进行读写，不能访问外设(输入输出设备)</li>
+<li>外设(输入输出设备)要输入输出数据，也只能和内存或从内存中读取</li>
+</ul>
+<p>下面我们用 <code>QQ</code> 聊天的过程，结合冯诺依曼体系，理解数据流动的过程<br>我们在进行 <code>点击QQ图标-&gt;输入账号登录-&gt;打开聊天窗口-&gt;输入消息&quot;你好!&quot;-&gt;点击发送</code> 这样的操作之后，在后台的数据流动过程：<br>下面我们用 <code>QQ</code> 聊天和发送文件的过程，结合<strong>冯诺依曼体系</strong>和<strong>网络通信原理</strong>，生动拆解数据流动的每一步（以 <code>Windows</code> 电脑为例）：</p>
+<ol>
+<li><p><strong>启动程序(冯诺依曼：CPU+存储器)</strong></p>
+<ul>
+<li>双击 <code>QQ</code> 图标 → <code>Windows</code> 从硬盘加载 <code>QQ</code> 程序到内存 → <code>CPU</code> 执行代码 → 登录界面显示</li>
+</ul>
+</li>
+<li><p><strong>登录验证(网络I&#x2F;O)</strong></p>
+<ul>
+<li>输入账号密码 → <strong>键盘（输入设备）</strong> 生成电信号 → <code>CPU</code> 通过<strong>系统总线</strong>读取数据 → <code>QQ</code> 程序将账号密码按腾讯协议<strong>封装成数据包</strong></li>
+<li>数据包通过<strong>网卡（输出设备）</strong> 发出 → 经路由器 → <strong>腾讯登录服务器</strong></li>
+<li>服务器验证成功 → 返回”登录令牌”给 <code>QQ</code> 客户端 → <code>QQ</code> 主界面加载好友列表（数据从内存渲染到显卡）</li>
+</ul>
+</li>
+<li><p><strong>发送消息（核心数据流）</strong></p>
+<ul>
+<li>输入”你好！” → 文字暂存于<strong>内存</strong>（聊天窗口编辑区）</li>
+<li>点击发送 → <code>CPU</code> 执行发送指令：<ul>
+<li><strong>步骤①：封装消息</strong></li>
+<li><strong>步骤②：网络传输</strong>数据包 → <strong>操作系统网络栈</strong> → 经<strong>网卡</strong>发出 → 通过家庭路由器 → 互联网 → <strong>腾讯消息中转服务器</strong></li>
+<li><strong>步骤③：服务器处理</strong><br>腾讯服务器解密校验 → 查询接收者 <code>IP</code> → 转发消息至<strong>好友的QQ客户端</strong>（若对方在线）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><strong>好友接收消息（反向流程）</strong></p>
+<ul>
+<li>好友的<strong>网卡（输入设备）</strong> 收到数据包 → 传输给内存 → <code>QQ</code> 程序被操作系统唤醒 → <code>CPU</code> 解析数据包 → 解密文字 → 在聊天窗口渲染”你好！”</li>
+<li><strong>界面更新</strong>：显卡将新消息画面输出到显示器（输出设备）</li>
+</ul>
+</li>
+</ol>
+<p>冯诺依曼架构中 <strong>CPU必须中介所有操作</strong>：</p>
+<ul>
+<li>键盘输入不能直连网卡，需 <code>CPU</code> 调度</li>
+<li>文件不能从硬盘直发网络，需经内存组装</li>
+<li>网络数据包必须由 <code>CPU</code> 解码才能显示</li>
+</ul>
+<h3 id="2-操作系统"><a href="#2-操作系统" class="headerlink" title="2. 操作系统"></a>2. 操作系统</h3><h4 id="2-1-概念"><a href="#2-1-概念" class="headerlink" title="2.1 概念"></a>2.1 概念</h4><p>任何计算机都包括一个基本的程序集合，称为操作系统(<code>Operator System</code>)。笼统的理解，操作系统包括：</p>
+<ul>
+<li>内核(进程管理、内存管理、文件管理、驱动管理)</li>
+<li>其他程序(例如函数库、<code>Shell</code> 程序等等)</li>
+</ul>
+<h4 id="2-2-设计OS的目的"><a href="#2-2-设计OS的目的" class="headerlink" title="2.2 设计OS的目的"></a>2.2 设计OS的目的</h4><p>如果没有操作系统，想象你使用一台“裸机”：</p>
+<ul>
+<li>需手动分配内存地址才能启动 <code>QQ</code>；</li>
+<li>发送文件要编写硬盘扇区读写代码；</li>
+<li>打印机需自己设计信号时序</li>
+</ul>
+<p>操作系统的核心使命是：管理硬件资源，提供人机交互与程序运行环境</p>
+<!-- ![1749169906605](image/进程概念/1749169906605.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749169906605.png" class="">
+
+<ul>
+<li>对上，与硬件交互，管理所有的软硬件资源</li>
+<li>对下，为用户程序(应用程序)提供一个良好的执行环境</li>
+</ul>
+<p>操作系统在整个计算机软硬件架构中，操作系统的定位是：<strong>一款纯正的”搞管理”的软件</strong></p>
+<h4 id="2-3-设计哲学-—-先描述，再组织"><a href="#2-3-设计哲学-—-先描述，再组织" class="headerlink" title="2.3 设计哲学 — 先描述，再组织"></a>2.3 设计哲学 — 先描述，再组织</h4><p><strong>先描述，再组织</strong>其本质是 <strong>用数据结构抽象资源，再用算法组织调度</strong>。这一思想贯穿操作系统对<strong>进程、文件、设备、内存等所有资源的管理</strong></p>
+<p><strong>什么是“先描述，再组织”？</strong></p>
+<ul>
+<li><strong>先描述（Describe）</strong>:<strong>用数据结构定义资源属性</strong>，将物理实体抽象为可操作的信息集合。<em>例如：进程不是“一段运行的代码”，而是包含状态、优先级、内存映射等属性的结构体</em></li>
+<li><strong>再组织（Organize）</strong><br><strong>通过数据结构（链表、树、队列等）管理这些描述块</strong>，实现高效调度</li>
+</ul>
+<p>通过这样的组织方式最大的好处之一就是<strong>解耦物理与逻辑</strong>和<strong>实现策略与机制分离</strong>(当然，管理也更高效)</p>
+<ul>
+<li>硬件千差万别（不同型号 <code>CPU</code> &#x2F;硬盘），但通过统一描述（如 <code>PCB</code>、<code>inode</code>），操作系统<strong>屏蔽底层差异</strong>，向上提供一致接口</li>
+<li>机制（<code>Mechanism</code>）：用数据结构组织资源（如用链表存 <code>PCB</code>）</li>
+<li>策略（<code>Policy</code>）：调度算法决定谁先运行（如时间片轮转&#x2F;优先级调度）</li>
+</ul>
+<p>举个🌰，以图书馆管理书籍为例</p>
+<p>原始图书馆（无“描述+组织”），所有书堆在大厅，管理员老王凭记忆找书，这样的缺点显然易见</p>
+<ul>
+<li>用户问：“《三体》在哪？” → 老王翻找半小时（<strong>检索效率O(n)</strong>）</li>
+<li>新书入库？随意塞角落 → 半年后彻底消失（<strong>资源丢失</strong>）</li>
+<li>两人借同一本书？冲突争吵（<strong>资源竞争</strong>）</li>
+</ul>
+<blockquote>
+<p>❌ <strong>本质</strong>：资源无结构化描述，管理依赖人脑——如同裸机直接操作硬件</p>
+</blockquote>
+<p>这时拿出杀手锏”先描述，再组织”</p>
+<p><strong>先描述—给每本书“发身份证”</strong><br>管理员给每本书添加<strong>元数据标签</strong>（描述）：</p>
+<figure class="highlight markdown"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">《三体》的描述卡：</span><br><span class="line"><span class="bullet">-</span> 书名：三体  </span><br><span class="line"><span class="bullet">-</span> ISBN：9787536692930  </span><br><span class="line"><span class="bullet">-</span> 分类：科幻小说 → TF类  </span><br><span class="line"><span class="bullet">-</span> 位置：3F-A区-2排-5架  </span><br><span class="line"><span class="bullet">-</span> 状态：可借阅  </span><br></pre></td></tr></table></figure>
+
+<p><strong>意义</strong>：</p>
+<ol>
+<li>解耦物理位置：书可移动，只需更新位置字段</li>
+<li>精准定位：通过 <code>ISBN</code> 唯一标识</li>
+</ol>
+<p><strong>再组织—构建数据结构网络</strong><br><strong>1. 按分类组织：树形目录（文件系统）</strong></p>
+<!-- ![1749300632266](image/进程概念/1749300632266.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749300632266.png" class="">
+
+<ul>
+<li><strong>查找路径</strong>：科学 → 计算机 → 操作系统 → 目标书（<strong>路径解析</strong>）</li>
+</ul>
+<p><strong>2. 按状态组织：借阅队列（进程调度）</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>队列类型</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>可借阅队列</td>
+</tr>
+<tr>
+<td>借出中队列</td>
+</tr>
+<tr>
+<td>预约等待队列</td>
+</tr>
+</tbody></table>
+<p>这样的处理方式为管理带来了很大的方便</p>
+<p><strong>场景1：用户借阅《三体》</strong></p>
+<ol>
+<li><strong>查询</strong>：系统用 <code>ISBN</code> 在<strong>可借阅队列</strong>锁定位置</li>
+<li><strong>状态更新</strong>：<ul>
+<li>书状态 → “借出中”</li>
+<li>用户借书证链表加入记录</li>
+</ul>
+</li>
+<li><strong>冲突处理</strong>：若书已被借走 → 加入<strong>预约队列</strong></li>
+</ol>
+<p><strong>场景2：书籍盘点</strong></p>
+<ul>
+<li><strong>问题</strong>：书架有“幽灵书”（状态可借阅，实际丢失）</li>
+<li><strong>解决</strong>：<ol>
+<li>扫描所有物理书 → 生成实际书集 <strong>A</strong></li>
+<li>比对系统记录书集 <strong>B</strong></li>
+<li><strong>差集 B-A &#x3D; 需删除的记录</strong></li>
+</ol>
+</li>
+</ul>
+<p><strong>场景3：热门书籍调度</strong></p>
+<ul>
+<li>监测到《三体》月借阅量 &gt; 100次</li>
+<li><strong>自动操作</strong>：<ol>
+<li>从 <code>3F</code> 深库区移至 <code>1F</code> 热门区</li>
+<li>复制3本副本 → 避免排队</li>
+</ol>
+</li>
+</ul>
+<p><strong>映射操作系统核心机制</strong></p>
+<table>
+<thead>
+<tr>
+<th><strong>图书馆操作</strong></th>
+<th><strong>操作系统对应</strong></th>
+<th><strong>底层思想</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>书籍元数据标签</td>
+<td>文件控制块（<code>inode</code>&#x2F;<code>FCB</code>）</td>
+<td><strong>描述资源属性</strong></td>
+</tr>
+<tr>
+<td>分类树目录</td>
+<td>文件系统目录树</td>
+<td><strong>组织资源层次</strong></td>
+</tr>
+<tr>
+<td>借阅状态队列</td>
+<td>进程就绪&#x2F;阻塞队列</td>
+<td><strong>动态调度依据</strong></td>
+</tr>
+<tr>
+<td>热门书移至1楼</td>
+<td>内存页面置换算法（<code>LRU</code>）</td>
+<td><strong>局部性原理优化</strong></td>
+</tr>
+<tr>
+<td><code>ISBN</code> 查书</td>
+<td>虚拟地址→物理地址转换</td>
+<td><strong>抽象定位资源</strong></td>
+</tr>
+</tbody></table>
+<p>想象图书馆是计算机：</p>
+<ul>
+<li><strong>书籍&#x3D;硬件资源</strong>（<code>CPU</code> 时间&#x2F;内存&#x2F;磁盘）</li>
+<li><strong>读者&#x3D;应用程序</strong>（需要资源完成任务）</li>
+<li><strong>管理员&#x3D;操作系统</strong>（用描述+组织高效分配资源）</li>
+</ul>
+<h4 id="2-4-系统调用和库函数"><a href="#2-4-系统调用和库函数" class="headerlink" title="2.4 系统调用和库函数"></a>2.4 系统调用和库函数</h4><ul>
+<li>在开发角度，操作系统会对外表现为一个整体，但是会暴露自己的部分接口，供上层开发使用，这部分<strong>由操作系统提供的接口，叫做系统调用</strong></li>
+<li>系统调用在使用上，功能比较基础，对用户的要求也相对较高，所以，有心的开发者就可以<strong>对部分系统调用进行适度封装</strong>，从而形成了库，有了库，有很利于上层用户或开发者进行二次开发</li>
+</ul>
+<h3 id="3-进程"><a href="#3-进程" class="headerlink" title="3. 进程"></a>3. 进程</h3><h4 id="3-1-基本概念"><a href="#3-1-基本概念" class="headerlink" title="3.1 基本概念"></a>3.1 基本概念</h4><p>进程是操作系统进行资源分配和调度的<strong>基本单位</strong></p>
+<h5 id="3-1-1-描述进程—PCB"><a href="#3-1-1-描述进程—PCB" class="headerlink" title="3.1.1 描述进程—PCB"></a>3.1.1 描述进程—PCB</h5><p><strong>基本概念</strong></p>
+<ul>
+<li>进程信息被放在一个叫做进程控制块的数据结构中，可以理解为进程属性的集合</li>
+<li>这个集合被称为 <code>PCB(Process Control Block)</code>，<code>Linux</code> 系统下的PCB的：<code>task_struct</code></li>
+</ul>
+<p><strong>task_struct是PCB的一种</strong></p>
+<ul>
+<li>在 <code>Linux</code> 中描述进程的结构体叫做 <code>task_struct</code></li>
+<li><code>task_struct</code> 是 <code>Linux</code> 内核的一种数据结构，它会被装在到 <code>RAM</code> (内存)里并包含着进程的信息</li>
+</ul>
+<h5 id="3-1-2-task-struct"><a href="#3-1-2-task-struct" class="headerlink" title="3.1.2 task_struct"></a>3.1.2 task_struct</h5><p><strong>内容分类</strong></p>
+<ul>
+<li>标识符：描述本进程的唯一标识符</li>
+<li>状态：任务状态、退出代码、退出信号等</li>
+<li>优先级：相对于其他进程的优先级</li>
+<li>程序计数器：程序中即将被执行的下一条指令的地址</li>
+<li>内存指针：包括程序代码和进程相关数据的指针，还有和其他进程共享的内存块的指针</li>
+<li>上下文数据：进程执行时处理器的寄存器中的数据</li>
+<li><code>I/O</code> 状态信息：包括显示的 <code>I/O</code> 请求，分配给进程的 <code>I/O</code> 设备和被进程使用的文件列表</li>
+<li>记账信息：包括处理器的时间总和，使用的时钟数，时间限制，记账号等</li>
+<li>其他信息</li>
+</ul>
+<h5 id="3-1-3-组织进程"><a href="#3-1-3-组织进程" class="headerlink" title="3.1.3 组织进程"></a>3.1.3 组织进程</h5><p>在 <code>Linux</code> 系统中，运行在系统中的进程都以 <code>task_struct</code> 链表的形式存储在内核里</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> *<span class="title">next</span>, *<span class="title">prev</span>;</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<!-- ![1749170125226](image/进程概念/1749170125226.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749170125226.png" class="">
+
+<h5 id="3-1-4-查看进程"><a href="#3-1-4-查看进程" class="headerlink" title="3.1.4 查看进程"></a>3.1.4 查看进程</h5><p><strong>进程的信息可以通过 <code>/proc</code> 系统文件夹查看</strong><br>   <!-- ![1749170829348](image/进程概念/1749170829348.png) --><br>   <img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749170829348.png" class=""></p>
+<p><strong><code>top</code> 和 <code>ps</code></strong><br><strong><code>ps</code> (Process Status):</strong> 提供<strong>静态的、瞬时的</strong>进程信息快照。你运行一次 <code>ps</code>，它就显示<em>那一刻</em>的进程状态</p>
+<ul>
+<li><strong>常用命令形式：</strong><ul>
+<li><strong><code>ps aux</code>：</strong> 最常用组合之一<ul>
+<li><code>a</code>： 显示终端上所有用户的进程（包括其他用户的）</li>
+<li><code>u</code>： 以面向用户的格式显示（显示用户名、<code>CPU%</code>、<code>MEM%</code> 等）</li>
+<li><code>x</code>： 显示没有控制终端的进程（通常是守护进程&#x2F;后台服务）</li>
+<li><strong>输出列详解 (常见列)：</strong><ul>
+<li><code>USER</code>: 进程所有者</li>
+<li><code>PID</code>: 进程的唯一 <code>ID</code></li>
+<li><code>%CPU</code>: 进程使用的 <code>CPU</code> 时间百分比</li>
+<li><code>%MEM</code>: 进程使用的物理内存百分比</li>
+<li><code>VSZ</code>: 虚拟内存大小 (<code>KiB</code>)</li>
+<li><code>RSS</code>: 驻留集大小，即实际使用的、未被换出的物理内存大小 (<code>KiB</code>)</li>
+<li><code>TTY</code>: 进程关联的终端。<code>?</code> 表示没有控制终端</li>
+<li><code>STAT</code>: 进程状态码 (非常重要！见下文)</li>
+<li><code>START</code>: 进程启动时间</li>
+<li><code>TIME</code>: 进程累计使用的 <code>CPU</code> 时间 (分钟:秒)</li>
+<li><code>COMMAND</code>: 启动进程的命令行</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>常用场景：</strong><ul>
+<li>查找特定进程的 <code>PID</code>：<code>ps aux | grep nginx</code></li>
+<li>查看进程的完整命令行：<code>ps -ef | grep java</code> 或 <code>ps auxww</code> (显示非常宽的 <code>COMMAND</code> 列)</li>
+<li>查看进程树关系：<code>ps -ef --forest</code> 或 <code>ps auxf</code></li>
+<li>查看特定用户的进程：<code>ps -u username</code></li>
+<li>查看进程的环境变量：<code>ps e -p PID</code> (查看指定 <code>PID</code> 的环境变量)</li>
+</ul>
+</li>
+</ul>
+<p><strong><code>top</code> (Table of Processes):</strong> 提供<strong>动态的、实时的、交互式的</strong>进程信息视图。它像系统资源的仪表盘，会持续更新（默认每几秒刷新一次），让你看到进程状态和资源占用的变化</p>
+<ul>
+<li><strong><code>top</code> 界面：</strong><ol>
+<li><strong>顶部系统摘要区：</strong><ul>
+<li>第一行 (<code>top - ...</code>): 系统当前时间、运行时间、登录用户数、系统负载 (1分钟, 5分钟, 15分钟平均值)</li>
+<li>第二行 (<code>Tasks:</code>): 总进程数、运行中 (<code>running</code>)、休眠中 (<code>sleeping</code>)、停止 (<code>stopped</code>)、僵尸 (<code>zombie</code>) 的数量</li>
+<li>第三行 (<code>%Cpu(s):</code>): <strong>CPU 使用率详细分解</strong><ul>
+<li><code>us</code>: 用户空间进程占用百分比</li>
+<li><code>sy</code>: 内核空间 (系统) 进程占用百分比</li>
+<li><code>ni</code>: 调整过优先级 (<code>nice</code>) 的用户进程占用百分比</li>
+<li><code>id</code>: 空闲百分比</li>
+<li><code>wa</code>: 等待 <code>I</code>&#x2F;<code>O</code> 完成的百分比 (高可能表示 <code>I</code>&#x2F;<code>O</code> 瓶颈)</li>
+<li><code>hi</code>: 处理硬件中断的百分比</li>
+<li><code>si</code>: 处理软件中断的百分比</li>
+<li><code>st</code>: 被虚拟机偷走的时间百分比 (在虚拟机中运行时重要)</li>
+</ul>
+</li>
+<li>第四行 (<code>KiB Mem:</code>): 物理内存使用情况 (总量、已用、空闲、缓冲区 <code>buffers</code>)</li>
+<li>第五行 (<code>KiB Swap:</code>): 交换空间使用情况 (总量、已用、空闲、缓存 <code>cached</code>)</li>
+</ul>
+</li>
+<li><strong>进程列表区：</strong> 列的含义与 <code>ps aux</code> 非常相似，默认包含：<ul>
+<li><code>PID</code>, <code>USER</code>, <code>PR</code> (优先级), <code>NI</code> (<code>Nice</code> 值), <code>VIRT</code> (同 VSZ), <code>RES</code> (同 <code>RSS</code>), <code>SHR</code> (共享内存大小), <code>S</code> (状态), <code>%CPU</code>, <code>%MEM</code>, <code>TIME+</code> (累计 <code>CPU</code> 时间), <code>COMMAND</code></li>
+</ul>
+</li>
+</ol>
+</li>
+<li><strong>常用交互命令 (在 <code>top</code> 运行时按)：</strong><ul>
+<li><code>P</code> : 按 <code>%CPU</code> 使用率排序 <strong>(默认)</strong></li>
+<li><code>M</code> : 按 <code>%MEM</code> (<code>RES</code>) 使用率排序</li>
+<li><code>T</code> : 按 <code>TIME+</code> (累计 <code>CPU</code> 时间) 排序</li>
+<li><code>N</code> : 按 <code>PID</code> 排序</li>
+<li><code>k</code> : 杀死进程 (输入 <code>PID</code> 后按回车)</li>
+<li><code>r</code> : 调整进程优先级 (<code>Renice</code>) (输入 <code>PID</code> 后输入新的 <code>Nice</code> 值)</li>
+<li><code>1</code> : 切换显示所有 <code>CPU</code> 核心的使用情况 (汇总显示 <code>vs</code> 每个核心单独显示)</li>
+<li><code>u</code> : 只显示指定用户的进程 (输入用户名)</li>
+<li><code>f</code> &#x2F; <code>F</code> : 进入字段管理界面，可以添加、移除、排序显示的列</li>
+<li><code>h</code> &#x2F; <code>?</code> : 显示帮助信息</li>
+<li><code>s</code> : 改变刷新间隔 (秒)</li>
+<li><code>q</code> : 退出 <code>top</code></li>
+<li><code>W</code> : 将当前配置写入 <code>~/.toprc</code> 文件 (保存个性化设置)</li>
+</ul>
+</li>
+</ul>
+<!-- ![1749170929499](image/进程概念/1749170929499.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749170929499.png" class="">
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> :; <span class="keyword">do</span> ps ajx | <span class="built_in">head</span> -1 &amp;&amp; ps axj | grep <span class="string">&#x27;进程名&#x27;</span> | grep -v grep ; <span class="built_in">sleep</span> 1; <span class="keyword">done</span></span><br><span class="line"><span class="comment"># 监控进程小脚本</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-5-获取进程标识符"><a href="#3-1-5-获取进程标识符" class="headerlink" title="3.1.5 获取进程标识符"></a>3.1.5 获取进程标识符</h5><p>在操作系统中，<strong>每个进程都有一个独一无二的进程标识符(Process Identifier，PID)</strong>，它就像进程的”身份证号”</p>
+<ul>
+<li>进程 <code>id</code>(<code>PID</code>)</li>
+<li>父进程 <code>id</code>(<code>PPID</code>)</li>
+</ul>
+<p><code>pid</code>&#x2F;<code>ppid</code>可以通过 <code>getpid</code> 和 <code>getppid</code> 函数调用获取</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getpid</span><span class="params">(<span class="type">void</span>)</span>;</span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">getppid</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cat</span> main.c</span><br><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;unistd.h&gt;</span></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Pid:%d\n&quot;</span>,getpid());</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Ppid:%d\n&quot;</span>,getppid());</span><br><span class="line">    <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br><span class="line">$ ./main</span><br><span class="line">Pid:1461527</span><br><span class="line">Ppid:1459442</span><br></pre></td></tr></table></figure>
+
+<h5 id="3-1-6-创建进程—初识fork"><a href="#3-1-6-创建进程—初识fork" class="headerlink" title="3.1.6 创建进程—初识fork"></a>3.1.6 创建进程—初识fork</h5><p><code>fork()</code> 是 <code>Unix/Linux</code> 系统中最重要的系统调用之一，用于创建新进程，其特点是[ 一次调用，两次返回 ]</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="type">pid_t</span> <span class="title function_">fork</span><span class="params">(<span class="type">void</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>📊 <strong>返回值</strong></p>
+<table>
+<thead>
+<tr>
+<th>返回值</th>
+<th>含义</th>
+<th>接收进程</th>
+<th>典型处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&gt;0</code></td>
+<td><strong>子进程的 PID</strong></td>
+<td>父进程</td>
+<td>记录子进程ID，用于后续管理</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td><strong>标识当前是子进程</strong></td>
+<td>子进程</td>
+<td>执行子进程专属任务</td>
+</tr>
+<tr>
+<td><code>&lt;0</code></td>
+<td><strong>创建失败</strong></td>
+<td>父进程</td>
+<td>错误处理（内存不足&#x2F;进程数达上限等）</td>
+</tr>
+</tbody></table>
+<p>当进程调用 <code>fork()</code> 时，操作系统会<strong>复制整个当前进程</strong>（包括代码、数据、堆栈、打开文件等），生成一个几乎完全相同的子进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#include&lt;stdio.h&gt;</span></span><br><span class="line"><span class="comment">#include&lt;unistd.h&gt;</span></span><br><span class="line"></span><br><span class="line">int <span class="function"><span class="title">main</span></span>()</span><br><span class="line">&#123;</span><br><span class="line">    int pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &lt; 0)</span><br><span class="line">    &#123;</span><br><span class="line">        fprintf(stderr,<span class="string">&quot;Fork error\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid == 0)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;I&#x27;m child process, my pid is:%d, ppid is:%d\n&quot;</span>,getpid(),getppid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;I&#x27;m parent process, my pid is:%d\n&quot;</span>,getpid());</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">return</span> 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./main </span><br><span class="line">I<span class="string">&#x27;m parent process, my pid is:1465424</span></span><br><span class="line"><span class="string">I&#x27;</span>m child process, my pid is:1465425, ppid is:1465424 </span><br></pre></td></tr></table></figure>
+
+<p><strong>执行流程</strong>：</p>
+<ol>
+<li>父进程执行 <code>fork()</code> 系统调用</li>
+<li>内核创建子进程（复制父进程上下文）</li>
+<li><strong>两个进程同时被调度执行</strong></li>
+<li><strong>每个进程各获得一个返回值</strong>：<ul>
+<li>父进程获得：<strong>子进程的 PID（&gt;0）</strong></li>
+<li>子进程获得：<strong>0</strong></li>
+</ul>
+</li>
+</ol>
+<p><strong>执行结果给人一种 “一个变量同时满足两个判断”的错觉？</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> pid = fork();  <span class="comment">// 关键点在这！</span></span><br></pre></td></tr></table></figure>
+
+<p>当执行到这一行时，系统分裂成两个进程：</p>
+<ol>
+<li><strong>父进程</strong>：<ul>
+<li>获得子进程的真实 <code>PID</code>（正整数）</li>
+<li>执行 <code>else</code> 分支（因为 <code>pid &gt; 0</code>）</li>
+<li>输出：<code>I&#39;m parent process...</code></li>
+</ul>
+</li>
+<li><strong>子进程</strong>：<ul>
+<li>获得返回值 <code>0</code></li>
+<li>执行 <code>else if (pid == 0)</code> 分支</li>
+<li>输出：<code>I&#39;m child process...</code></li>
+</ul>
+</li>
+</ol>
+<p><strong>注意</strong>⚡</p>
+<ol>
+<li><strong>不是同一个变量</strong>：<ul>
+<li>父子进程有各自独立的 <code>pid</code> 变量副本</li>
+<li>父进程的 <code>pid</code> 存储子进程的真实 <code>ID</code></li>
+<li>子进程的 <code>pid</code> 存储值 <code>0</code></li>
+</ul>
+</li>
+<li><strong>不是同时执行</strong>：<ul>
+<li>两个进程是并发执行，可能：<ul>
+<li>父进程先运行</li>
+<li>子进程先运行</li>
+<li>交替运行（由内核调度器决定）</li>
+</ul>
+</li>
+<li>输出顺序不固定</li>
+</ul>
+</li>
+<li><strong>代码共享但数据独立</strong>：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 验证数据独立性</span></span><br><span class="line"><span class="type">int</span> counter = <span class="number">0</span>;</span><br><span class="line"><span class="type">pid_t</span> pid = fork();</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (pid == <span class="number">0</span>) &#123;</span><br><span class="line">    counter = <span class="number">100</span>;  <span class="comment">// 只修改子进程的counter</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Child counter: %d\n&quot;</span>, counter);</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    sleep(<span class="number">1</span>);  <span class="comment">// 确保子进程先执行</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Parent counter: %d\n&quot;</span>, counter); <span class="comment">// 仍然是0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><strong>注意</strong><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 错误理解：认为fork()返回两次值到同一个变量</span></span><br><span class="line"><span class="type">int</span> pid = fork(); <span class="comment">// 不是同时设置0和正数！</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 正确理解：</span></span><br><span class="line"><span class="comment">//   - 父进程上下文：pid = 子进程ID</span></span><br><span class="line"><span class="comment">//   - 子进程上下文：pid = 0</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>为什么有两个返回值？</strong><br>关键原因在于：<strong><code>fork()</code> 调用成功后，系统中会同时存在两个独立的进程（父进程和子进程），它们都从 <code>fork()</code> 返回点继续执行</strong>。类似于平行宇宙，<code>fork</code> 是个分叉机器</li>
+</ol>
+<h4 id="3-2-进程状态"><a href="#3-2-进程状态" class="headerlink" title="3.2 进程状态"></a>3.2 进程状态</h4><p>在 <code>kernel</code> 源代码中的定义</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">static</span> <span class="type">const</span> <span class="type">char</span> * <span class="type">const</span> task_state_array[] = &#123;</span><br><span class="line">    <span class="string">&quot;R (running)&quot;</span>,		<span class="comment">/*   0 */</span></span><br><span class="line">    <span class="string">&quot;S (sleeping)&quot;</span>,		<span class="comment">/*   1 */</span></span><br><span class="line">    <span class="string">&quot;D (disk sleep)&quot;</span>,	<span class="comment">/*   2 */</span></span><br><span class="line">    <span class="string">&quot;T (stopped)&quot;</span>,		<span class="comment">/*   4 */</span></span><br><span class="line">    <span class="string">&quot;t (tracing stop)&quot;</span>,	<span class="comment">/*   8 */</span></span><br><span class="line">    <span class="string">&quot;Z (zombie)&quot;</span>,		<span class="comment">/*  16 */</span></span><br><span class="line">    <span class="string">&quot;X (dead)&quot;</span>,		<span class="comment">/*  32 */</span></span><br><span class="line">    <span class="string">&quot;x (dead)&quot;</span>,		<span class="comment">/*  64 */</span></span><br><span class="line">    <span class="string">&quot;K (wakekill)&quot;</span>,		<span class="comment">/* 128 */</span></span><br><span class="line">    <span class="string">&quot;W (waking)&quot;</span>,		<span class="comment">/* 256 */</span></span><br><span class="line">    <span class="string">&quot;P (parked)&quot;</span>,		<span class="comment">/* 512 */</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th><strong>状态标识</strong></th>
+<th><strong>状态名称</strong></th>
+<th><strong>状态值</strong></th>
+<th><strong>描述</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>R (running)</strong></td>
+<td>运行中</td>
+<td>0</td>
+<td>进程正在 <code>CPU</code> 执行或在运行队列中等待调度</td>
+</tr>
+<tr>
+<td><strong>S (sleeping)</strong></td>
+<td>可中断睡眠</td>
+<td>1</td>
+<td>进程等待事件（如 <code>I</code>&#x2F;<code>O</code> 完成），可被信号唤醒</td>
+</tr>
+<tr>
+<td><strong>D (disk sleep)</strong></td>
+<td>不可中断睡眠</td>
+<td>2</td>
+<td>进程等待磁盘 <code>I</code>&#x2F;<code>O</code> 完成，<strong>不响应任何信号</strong>（包括SIGKILL）</td>
+</tr>
+<tr>
+<td><strong>T (stopped)</strong></td>
+<td>暂停状态</td>
+<td>4</td>
+<td>进程被信号（<code>SIGSTOP</code>&#x2F;<code>SIGTSTP</code>）暂停执行</td>
+</tr>
+<tr>
+<td><strong>t (tracing stop)</strong></td>
+<td>跟踪暂停</td>
+<td>8</td>
+<td>进程被调试器（如 <code>gdb</code>）暂停，是特殊的停止状态</td>
+</tr>
+<tr>
+<td><strong>Z (zombie)</strong></td>
+<td>僵尸状态</td>
+<td>16</td>
+<td>进程已终止，但父进程尚未回收资源（<code>PCB</code> 未释放）</td>
+</tr>
+<tr>
+<td><strong>X (dead)</strong></td>
+<td>完全死亡</td>
+<td>32</td>
+<td>进程最终死亡状态（资源已回收），<strong>用户空间不可见</strong></td>
+</tr>
+<tr>
+<td><strong>x (dead)</strong></td>
+<td>扩展死亡状态</td>
+<td>64</td>
+<td>进程组死亡状态，用于进程组终止场景</td>
+</tr>
+<tr>
+<td><strong>K (wakekill)</strong></td>
+<td>唤醒终止</td>
+<td>128</td>
+<td>进程因致命信号（<code>SIGKILL</code>）被强制唤醒</td>
+</tr>
+<tr>
+<td><strong>W (waking)</strong></td>
+<td>唤醒中</td>
+<td>256</td>
+<td>进程正在被唤醒，准备投入运行</td>
+</tr>
+<tr>
+<td><strong>P (parked)</strong></td>
+<td>停放状态</td>
+<td>512</td>
+<td>内核线程专用状态，暂时移出调度队列</td>
+</tr>
+</tbody></table>
+<!-- ![1749255713909](image/进程概念/1749255713909.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749255713909.png" class="">
+<p>看下面 <code>ps aux</code> 的输出👇</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">$ ps aux</span><br><span class="line">USER         PID %CPU %MEM    VSZ   RSS TTY      STAT START   TIME COMMAND</span><br><span class="line">root           1  0.0  0.5  22344 10440 ?        Ss   May05   1:06 /usr/lib/systemd/systemd --system --deserialize=20 noibrs</span><br><span class="line">root           3  0.0  0.0      0     0 ?        S    May05   0:00 [pool_workqueue_release]</span><br><span class="line">root           4  0.0  0.0      0     0 ?        I&lt;   May05   0:00 [kworker/R-rcu_g]</span><br><span class="line">root          15  0.0  0.0      0     0 ?        I    May05   0:00 [rcu_tasks_trace_kthread]</span><br><span class="line">root          35  0.0  0.0      0     0 ?        I&lt;   May05   0:00 [kworker/R-write]</span><br><span class="line">root          37  0.0  0.0      0     0 ?        SN   May05   0:00 [ksmd]</span><br><span class="line">message+     702  0.0  0.1   9996  2944 ?        Ss   May05   0:09 @dbus-daemon --system --address=systemd: --nofork --nopidfile --systemd-activatio</span><br><span class="line">root         718  0.0  0.2  18104  4352 ?        Ss   May05   0:04 /usr/lib/systemd/systemd-logind</span><br><span class="line">root         734  0.0  0.3 333748  6784 ?        Ssl  May05   0:12 /usr/sbin/NetworkManager --no-daemon</span><br><span class="line">root         737  0.0  0.0  17376  1664 ?        Ss   May05   0:11 /usr/sbin/wpa_supplicant -u -s -O DIR=/run/wpa_supplicant GROUP=netdev</span><br><span class="line">root        1140  0.0  0.0   5720   256 ttyS0    Ss+  May05   0:00 /sbin/agetty -o -p -- \u --keep-baud 115200,57600,38400,9600 - vt220</span><br><span class="line">root        1148  0.0  0.0   6104   256 tty1     Ss+  May05   0:00 /sbin/agetty -o -p -- \u --noclear - linux</span><br><span class="line">root        1472  0.0  0.0      0     0 ?        I&lt;   May05   0:00 [kworker/R-tls-s]</span><br><span class="line">root       47804  0.0  3.7 124188 67292 ?        S&lt;s  May06   2:04 /usr/lib/systemd/systemd-journald</span><br><span class="line">root     1496109  0.0  0.4  14972  8360 ?        Ss   08:16   0:00 sshd: wyf [priv]</span><br><span class="line">root     1496112  0.0  0.0      0     0 ?        S    08:16   0:00 [psimon]</span><br><span class="line">wyf      1496114  0.0  0.6  20224 11264 ?        Ss   08:16   0:00 /usr/lib/systemd/systemd --user</span><br><span class="line">wyf      1496206  0.0  0.3  15132  7096 ?        S    08:16   0:00 sshd: wyf@pts/0</span><br><span class="line">wyf      1496207  0.0  0.3   8768  5504 pts/0    Ss   08:16   0:00 -bash</span><br><span class="line">wyf      1496444  0.0  0.2  10884  4480 pts/0    R+   08:24   0:00 ps aux</span><br></pre></td></tr></table></figure>
+
+<table>
+<thead>
+<tr>
+<th>符号</th>
+<th>状态</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>R</strong></td>
+<td>运行中</td>
+<td>进程正在运行或就绪（在运行队列中）</td>
+</tr>
+<tr>
+<td><strong>S</strong></td>
+<td>可中断睡眠</td>
+<td>等待事件完成（如 <code>I</code>&#x2F;<code>O</code> 操作），可被信号唤醒</td>
+</tr>
+<tr>
+<td><strong>D</strong></td>
+<td>不可中断睡眠</td>
+<td>等待磁盘 <code>I</code>&#x2F;<code>O</code>，<strong>不响应任何信号</strong>（<code>kill -9</code> 无效）</td>
+</tr>
+<tr>
+<td><strong>I</strong></td>
+<td>空闲内核线程</td>
+<td><strong>新增状态</strong>，表示内核线程处于空闲状态（<code>Linux 4.0+</code> 引入）</td>
+</tr>
+<tr>
+<td><strong>Z</strong></td>
+<td>僵尸进程</td>
+<td>进程已终止但资源未回收</td>
+</tr>
+<tr>
+<td><strong>T</strong></td>
+<td>暂停状态</td>
+<td>被信号（<code>SIGSTOP</code>）暂停</td>
+</tr>
+<tr>
+<td><strong>t</strong></td>
+<td>跟踪暂停</td>
+<td>被调试器暂停</td>
+</tr>
+<tr>
+<td><strong>&lt;</strong></td>
+<td>高优先级</td>
+<td>进程优先级高（<code>nice</code> 值 &lt; 0）</td>
+</tr>
+<tr>
+<td><strong>N</strong></td>
+<td>低优先级</td>
+<td>进程优先级低（<code>nice</code> 值 &gt; 0）</td>
+</tr>
+<tr>
+<td><strong>s</strong></td>
+<td>会话领导者</td>
+<td>进程是会话的首进程（如 <code>shell</code>）</td>
+</tr>
+<tr>
+<td><strong>l</strong></td>
+<td>多线程</td>
+<td>进程包含多个线程（小写 <code>L</code>）</td>
+</tr>
+<tr>
+<td><strong>+</strong></td>
+<td>前台进程</td>
+<td>进程属于前台进程组（与终端关联）</td>
+</tr>
+</tbody></table>
+<ol>
+<li><strong><code>I</code> 状态（空闲内核线程）</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root           4  0.0  0.0      0     0 ?        I&lt;   May05   0:00 [kworker/R-rcu_g]</span><br><span class="line">root          13  0.0  0.0      0     0 ?        I    May05   0:00 [rcu_tasks_kthread]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>I</strong>：内核线程的空闲状态（<code>Linux 4.0+</code> 新增）</li>
+<li><strong>特点</strong>：<ul>
+<li>不消耗 CPU 资源</li>
+<li>可随时被内核唤醒处理任务</li>
+<li>仅出现在内核线程（方括号内的进程名）</li>
+</ul>
+</li>
+</ul>
+<ol start="2">
+<li><strong><code>&lt;</code> 符号（高优先级）</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root           4  0.0  0.0      0     0 ?        I&lt;   May05   0:00 [kworker/R-rcu_g]</span><br><span class="line">root          55  0.0  0.0      0     0 ?        I&lt;   May05   0:07 [kworker/0:1H-kblockd]</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>&lt;</strong>：高优先级进程（nice 值 &lt; 0）</li>
+</ul>
+<ol start="3">
+<li><strong><code>+</code> 符号（前台进程）</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wyf      1496444  0.0  0.2  10884  4480 pts/0    R+   08:24   0:00 ps aux</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>+</strong>：进程属于<strong>前台进程组</strong></li>
+<li><strong>特点</strong>：<ul>
+<li>可接收终端信号（如 <code>Ctrl+C</code> 发送 <code>SIGINT</code>）</li>
+<li>与终端关联的交互式进程</li>
+<li>示例：<code>ps aux</code> 在终端前台运行</li>
+</ul>
+</li>
+</ul>
+<ol start="4">
+<li><strong>组合状态</strong></li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">root           1  0.0  0.5  22344 10440 ?        Ss   May05   1:06 /usr/lib/systemd/systemd</span><br></pre></td></tr></table></figure>
+<ul>
+<li><strong>Ss</strong>：<ul>
+<li><code>S</code>：可中断睡眠（等待事件）</li>
+<li><code>s</code>：会话领导者（所有进程的祖先）</li>
+</ul>
+</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">syslog     47852  0.0  0.2 222508  5376 ?        Ssl  May06   0:23 /usr/sbin/rsyslogd</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>Ssl</strong>：<ul>
+<li><code>S</code>：可中断睡眠</li>
+<li><code>s</code>：会话领导者</li>
+<li><code>l</code>：多线程</li>
+</ul>
+</li>
+</ul>
+<p><strong>补充—孤儿进程</strong><br><strong>孤儿进程（Orphan Process）</strong> 是指其<strong>父进程已经终止（退出）</strong>，但自身仍在运行的子进程。当一个进程变成孤儿时，操作系统会将其<strong>托管给一个特殊的父进程（通常是 <code>init</code> 或 <code>systemd</code>，进程 ID 为 1）</strong>，由这个新父进程负责后续的管理和资源回收</p>
+<ul>
+<li><strong>与僵尸进程的区别</strong>：| <strong>孤儿进程</strong>             | <strong>僵尸进程</strong>                         |<br>| —————————— | —————————————— |<br>| 父进程已终止，子进程仍在运行   | 子进程已终止，但父进程未调用 <code>wait()</code>    |<br>| 由 <code>init</code> 接管并负责回收资源 | 占用进程表项，需父进程处理或 <code>init</code> 接管 |<br>| <strong>无资源泄漏风险</strong>       | 可能导致资源泄漏（如 <code>PID</code> 耗尽）            |</li>
+</ul>
+<p><strong>创建僵尸进程</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// zombie.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span><span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span>(pid &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">&quot;Fork error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span>(pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Child[%d] is going to turn into Zombie\n&quot;</span>,getpid());</span><br><span class="line">        sleep(<span class="number">5</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span>&#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Parent[%d] is sleeping...\n&quot;</span>,getpid());</span><br><span class="line">        sleep(<span class="number">30</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$ ./zombie </span><br><span class="line">Parent[1503955] is sleeping...</span><br><span class="line">Child[1503956] is going to turn into Zombie</span><br><span class="line">$ </span><br></pre></td></tr></table></figure>
+
+<p><strong>监控进程状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">while</span> :; <span class="keyword">do</span> ps ajx | <span class="built_in">head</span> -1 &amp;&amp; ps axj | grep <span class="string">&#x27;zombie&#x27;</span> | grep -v grep ; <span class="built_in">sleep</span> 1; <span class="keyword">done</span></span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">1499202 1500253 1500253 1499202 pts/1    1500253 S+    1000   0:00 ./zombie</span><br><span class="line">1500253 1500254 1500253 1499202 pts/1    1500253 S+    1000   0:00 ./zombie</span><br><span class="line">……</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">1499202 1500253 1500253 1499202 pts/1    1500253 S+    1000   0:00 ./zombie</span><br><span class="line">1500253 1500254 1500253 1499202 pts/1    1500253 Z+    1000   0:00 [zombie] &lt;defunct&gt;</span><br><span class="line">……</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">1499202 1500253 1500253 1499202 pts/1    1500253 S+    1000   0:00 ./zombie</span><br><span class="line">1500253 1500254 1500253 1499202 pts/1    1500253 Z+    1000   0:00 [zombie] &lt;defunct&gt;</span><br></pre></td></tr></table></figure>
+
+<!-- ![1749262895599](image/进程概念/1749262895599.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749262895599.png" class="">
+
+<p><strong>创建孤儿进程</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//orphan.c</span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/wait.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">pid_t</span> child_pid = fork();</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> (child_pid &lt; <span class="number">0</span>) &#123;</span><br><span class="line">        perror(<span class="string">&quot;Fork error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  </span><br><span class="line">    <span class="keyword">if</span> (child_pid &gt; <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Parent PID: %d\n&quot;</span>, getpid());</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Created child with PID: %d\n&quot;</span>, child_pid);</span><br><span class="line">        <span class="comment">// 父进程立即退出，使子进程成为孤儿</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Parent exiting...\n&quot;</span>);</span><br><span class="line">        <span class="built_in">exit</span>(EXIT_SUCCESS);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        sleep(<span class="number">2</span>);  <span class="comment">// 确保父进程先退出</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;\nChild process became orphan:\n&quot;</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;  PID: %d\n&quot;</span>, getpid());</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;  PPID: %d (now init/systemd)\n&quot;</span>, getppid());</span><br><span class="line">        <span class="comment">// 模拟孤儿进程继续工作</span></span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Orphan process continues running...\n&quot;</span>);</span><br><span class="line">        <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">5</span>; i &gt; <span class="number">0</span>; i--) &#123;</span><br><span class="line">            <span class="built_in">printf</span>(<span class="string">&quot;Countdown: %d\n&quot;</span>, i);</span><br><span class="line">            sleep(<span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Orphan process exiting\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">$ ./orphan </span><br><span class="line">Parent PID: 1503593</span><br><span class="line">Created child with PID: 1503594</span><br><span class="line">Parent exiting...</span><br><span class="line">$ <span class="comment"># ？ 父进程退出会让shell认为进程结束，所以会打印一次提示符</span></span><br><span class="line">Child process became orphan:</span><br><span class="line">  PID: 1503594</span><br><span class="line">  PPID: 1 (now init/systemd)</span><br><span class="line">Orphan process continues running...</span><br><span class="line">Countdown: 5</span><br><span class="line">Countdown: 4</span><br><span class="line">Countdown: 3</span><br><span class="line">Countdown: 2</span><br><span class="line">Countdown: 1</span><br><span class="line">Orphan process exiting</span><br><span class="line">$ </span><br></pre></td></tr></table></figure>
+
+<p><strong>监控进程状态</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="keyword">while</span> :; <span class="keyword">do</span> ps ajx | <span class="built_in">head</span> -1 &amp;&amp; ps axj | grep <span class="string">&#x27;orphan&#x27;</span> | grep -v grep ; <span class="built_in">sleep</span> 1; <span class="keyword">done</span></span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br><span class="line">   PPID     PID    PGID     SID TTY        TPGID STAT   UID   TIME COMMAND</span><br><span class="line">      1 1503594 1503593 1499202 pts/1    1499202 S     1000   0:00 ./orphan</span><br></pre></td></tr></table></figure>
+
+<!-- ![1749262965332](image/进程概念/1749262965332.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749262965332.png" class="">
+<p>打印一次提示符👇</p>
+<!-- ![1749264166542](image/进程概念/1749264166542.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749264166542.png" class="">
+
+<h4 id="3-3-进程优先级"><a href="#3-3-进程优先级" class="headerlink" title="3.3 进程优先级"></a>3.3 进程优先级</h4><h5 id="3-3-1-基本概念"><a href="#3-3-1-基本概念" class="headerlink" title="3.3.1 基本概念"></a>3.3.1 基本概念</h5><ul>
+<li><code>CPU</code> 资源分配的先后顺序，就是指进程的优先级</li>
+<li>优先级高的进程有优先执行的权利。配置进程优先级在多任务环境的 <code>Linux</code> 很有用，可以改善系统的性能</li>
+<li>还可以将进程运行到指定 <code>CPU</code> 上，这样一来，把不重要的进程安排到某个 <code>CPU</code> 上，可以大大的改善系统整体性能</li>
+<li>竞争性：系统进程数目众多，而 <code>CPU</code> 资源少，甚至只有一个，所以进程之间是具有竞争属性的。为了高效完成任务，更合理的竞争资源，便具有了优先级</li>
+<li>独立性：多进程运行，需要独享各种资源，多进程运行期间互不干扰</li>
+<li>并行 (<code>Parallelism</code>)；多个任务<strong>真正同时执行</strong>，需要多核&#x2F;多处理器硬件支持</li>
+<li>并发 (<code>Concurrency</code>)：多个任务在重叠的时间段内执行（但不一定是同时执行），通过<strong>快速切换</strong>任务创造”同时进行”的错觉（单核也能实现）</li>
+</ul>
+<h5 id="3-3-2-查看系统进程"><a href="#3-3-2-查看系统进程" class="headerlink" title="3.3.2 查看系统进程"></a>3.3.2 查看系统进程</h5><p><code>ps -l</code> 输出内容</p>
+<!-- ![1749201965694](image/进程概念/1749201965694.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749201965694.png" class="">
+<p>其中</p>
+<ul>
+<li><code>UID</code>：代表执行者的身份</li>
+<li><code>PID</code>：进程 <code>ID</code></li>
+<li><code>PPID</code>：父进程 <code>ID</code></li>
+<li><code>PRI</code>：该进程的可被执行的优先级，越小优先级越高</li>
+<li><code>NI</code>：进程的 <code>nice</code> 值</li>
+</ul>
+<h5 id="3-3-2-PRI和NI"><a href="#3-3-2-PRI和NI" class="headerlink" title="3.3.2 PRI和NI"></a>3.3.2 PRI和NI</h5><ul>
+<li><code>PRI</code> 就是进程的优先级，也就是进程被 <code>CPU</code> 执行的先后顺序</li>
+<li><code>NI</code> 也叫 <code>nice</code> 值，其表示进程可以被执行的优先级的修正数值</li>
+<li><code>PRI(new) = PRI(old) + nice</code></li>
+<li>当 <code>nice</code> 值为负值的时候，那么该进程的优先级会变小，其优先级会变高，也就越快被执行</li>
+<li>因此，在 <code>Linux</code> 下，调整进程优先级，就是调整进程 <code>nice</code> 值</li>
+<li><code>nice</code> 取值范围是 <code>-20~19</code>，一共 <code>40</code> 个级别</li>
+<li>注意：进程 <code>nice</code> 值并不是进程的优先级，而是进程优先级的一个修正数据</li>
+</ul>
+<ol>
+<li><strong><code>nice</code> 命令：</strong><ul>
+<li><p><strong>用途：</strong> <strong>启动</strong>一个新进程，并为其指定一个初始的 <code>nice</code> 值（不同于默认的 0）</p>
+</li>
+<li><p><strong>语法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nice</span> [-n N] <span class="built_in">command</span> [arguments]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-n N</code>：指定一个 <strong>增量</strong> N。新的 <code>nice</code> 值 &#x3D; 当前 <code>shell</code> 的 <code>nice</code> 值 + <code>N</code></li>
+<li><code>N</code> 的范围通常是 <code>-20</code> 到 <code>19</code>。如果省略 <code>-n</code>，默认增量是 <code>10</code>（即启动一个 <code>nice</code> 值为 <code>当前值+10</code> 的低优先级进程）</li>
+</ul>
+</li>
+<li><p><strong>示例：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">nice</span> -n 10 ./cpu_intensive_job.sh  <span class="comment"># 启动一个低优先级(+10)的任务</span></span><br><span class="line"><span class="built_in">nice</span> -n -5 ./critical_task        <span class="comment"># (需要root) 启动一个较高优先级(-5)的任务</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li><strong><code>renice</code> 命令：</strong><ul>
+<li><p><strong>用途：</strong> <strong>修改</strong>一个或多个<strong>已经在运行</strong>的进程的 <code>nice</code> 值</p>
+</li>
+<li><p><strong>语法：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">renice [-n] N [-g|-p|-u] ID ...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>-n N</code>：直接指定<strong>新的绝对 <code>nice</code> 值</strong> <code>N</code>（范围 <code>-20</code> 到 <code>19</code>）</li>
+<li>指定目标方式：<ul>
+<li><code>-g GID</code>：修改属于指定<strong>组 <code>ID</code> (<code>GID</code>)</strong> 的所有进程</li>
+<li><code>-p PID</code>：修改指定<strong>进程 <code>ID</code> (<code>PID</code>)</strong> 的进程（这是默认方式）</li>
+<li><code>-u USER</code>：修改属于指定**用户名或 <code>UID</code>**的所有进程</li>
+</ul>
+</li>
+<li><code>ID ...</code>：一个或多个 <code>GID</code>、<code>PID</code> 或 <code>USER</code></li>
+</ul>
+</li>
+<li><p><strong>示例：</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">renice -n 5 1234               <span class="comment"># 将PID 1234的nice值改为5</span></span><br><span class="line">renice -n -10 -u apache        <span class="comment"># (需要root) 将所有属于用户&#x27;apache&#x27;的进程优先级提到最高(-10)</span></span><br><span class="line">renice -n 15 -g developers     <span class="comment"># (需要root) 将所有属于组&#x27;developers&#x27;的进程优先级降到最低(+15)</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ol>
+<p><strong>底层系统调用</strong><br>命令 <code>nice</code> 和 <code>renice</code> 最终是通过 <code>Linux</code> 内核提供的系统调用来实现功能的。主要涉及两个系统调用：</p>
+<ol>
+<li><strong><code>setpriority(int which, id_t who, int prio)</code>：</strong><ul>
+<li><strong>功能：</strong> 设置进程、进程组或用户的 <code>nice</code> 值。这是 <code>renice</code> 命令的核心实现方式，功能最强大</li>
+<li><strong>参数：</strong><ul>
+<li><code>which</code>：指定 <code>who</code> 参数的含义。取值：<ul>
+<li><code>PRIO_PROCESS</code>：<code>who</code> 是进程 <code>ID</code> (<code>PID</code>)。设置单个进程</li>
+<li><code>PRIO_PGRP</code>：<code>who</code> 是进程组 <code>ID</code> (<code>PGID</code>)。设置整个进程组</li>
+<li><code>PRIO_USER</code>：<code>who</code> 是用户 <code>ID</code> (<code>UID</code>)。设置属于该用户的所有进程</li>
+</ul>
+</li>
+<li><code>who</code>：与 <code>which</code> 对应的 <code>ID</code>。如果 <code>who</code> 为 <code>0</code>，表示当前进程、当前进程组或当前用户（取决于 <code>which</code>）</li>
+<li><code>prio</code>：要设置的<strong>新的 <code>nice</code> 值</strong>（范围 <code>-20</code> 到 <code>19</code>）</li>
+</ul>
+</li>
+<li><strong>返回值：</strong> 成功返回 <code>0</code>，失败返回 <code>-1</code> 并设置 <code>errno</code>（常见错误：<code>EPERM</code> 权限不足，<code>EINVAL</code> 无效参数，<code>ESRCH</code> 找不到目标）</li>
+<li><strong>权限要求：</strong> 与 <code>renice</code> 命令相同。非特权用户只能增加 <code>nice</code> 值（降低优先级）</li>
+</ul>
+</li>
+<li><strong><code>nice(int inc)</code>：</strong><ul>
+<li><strong>功能：</strong> <strong>增加</strong>当前调用进程的 <code>nice</code> 值。<code>nice()</code> 只能修改<strong>当前进程</strong>的优先级，并且只能<strong>增加</strong> <code>nice</code> 值（降低优先级）</li>
+<li><strong>参数：</strong><ul>
+<li><code>inc</code>：要<strong>增加</strong>的 <code>nice</code> 值增量。例如，<code>inc = 5</code> 会让当前进程的 <code>nice</code> 值增加 <code>5</code>（优先级降低）</li>
+</ul>
+</li>
+<li><strong>返回值：</strong> 成功时返回<strong>新的 <code>nice</code> 值</strong>（范围 <code>-20</code> 到 <code>19</code>）。失败时返回 <code>-1</code> 并设置 <code>errno</code>（常见错误：<code>EPERM</code> 尝试增加负数 <code>inc</code> 以提高优先级但没有权限）</li>
+<li><strong>权限要求：</strong> 非特权用户只能传递 <code>inc &gt;= 0</code>。特权用户可以传递任意 <code>inc</code>（包括负数），但新 <code>nice</code> 值仍必须在 <code>-20</code> 到 <code>19</code> 范围内</li>
+<li><strong>与 <code>setpriority()</code> 的关系：</strong> <code>nice(inc)</code> 本质上等价于：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> newprio = getpriority(PRIO_PROCESS, <span class="number">0</span>) + inc;</span><br><span class="line">setpriority(PRIO_PROCESS, <span class="number">0</span>, newprio);</span><br><span class="line"><span class="keyword">return</span> newprio; <span class="comment">// (实际实现有原子性和错误处理差异)</span></span><br></pre></td></tr></table></figure>
+<code>getpriority()</code> 系统调用用于获取 <code>nice</code> 值</li>
+</ul>
+</li>
+</ol>
+<p><strong>总结</strong></p>
+<ul>
+<li><strong><code>nice</code>：</strong> 用于<strong>启动</strong>一个具有特定初始 <code>nice</code> 值的新进程</li>
+<li><strong><code>renice</code>：</strong> 用于<strong>修改</strong>已运行进程的 <code>nice</code> 值（按 <code>PID</code>, <code>PGID</code> 或 <code>UID</code>）</li>
+<li><strong><code>setpriority()</code>：</strong> 核心系统调用，实现 <code>renice</code> 的功能，可以按进程、进程组或用户设置 <code>nice</code> 值</li>
+<li><strong><code>nice()</code>：</strong> 较老的系统调用，只能增加当前进程的 <code>nice</code> 值（降低其优先级）。功能是 <code>setpriority()</code> 的子集</li>
+</ul>
+<h4 id="3-4-进程切换"><a href="#3-4-进程切换" class="headerlink" title="3.4 进程切换"></a>3.4 进程切换</h4><p>进程切换（<code>Process Switching</code>），也称为上下文切换（<code>Context Switch</code>），是操作系统在多任务环境中实现<strong>并发执行</strong>的核心机制。当操作系统决定暂停当前运行的进程并开始执行另一个进程时，就会发生进程切换</p>
+<p>实际含义就是任务切换，或者 <code>CPU</code> 寄存器切换。当多任务内核决定运行另外的任务时，它保存正在运行的当前状态，也就是 <code>CPU</code> 寄存器中的全部内容。这些内容被保存在任务自己的堆栈中，入栈工作完成后把下一个要运行的任务的当前状况从该任务的栈中重新装入 <code>CPU</code> 寄存器，并开始下一个任务的运行，这个一过程就是 <code>Context Switch</code></p>
+<!-- ![1749210243601](image/进程概念/1749210243601.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749210243601.png" class="">
+<!-- ![1749211604064](image/进程概念/1749211604064.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749211604064.png" class="">
+
+<blockquote>
+<p>时间片：当代计算机都是分时操作系统，每个进程都有它适合的时间片(其实就是一个计数器)。时间片到达，进程就被操作系统从CPU上剥离下来</p>
+</blockquote>
+<!-- ![1749266599423](image/进程概念/1749266599423.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749266599423.png" class="">
+
+<h5 id="3-4-1-内核调度队列"><a href="#3-4-1-内核调度队列" class="headerlink" title="3.4.1 内核调度队列"></a>3.4.1 内核调度队列</h5><!-- ![1749266699139](image/进程概念/1749266699139.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749266699139.png" class="">
+
+<h5 id="3-4-2-runqueue"><a href="#3-4-2-runqueue" class="headerlink" title="3.4.2 runqueue"></a>3.4.2 runqueue</h5><p><code>runqueue</code>（运行队列）是操作系统中的核心数据结构，主要用于管理所有可运行的任务（进程或线程），实现负载均衡，在 <code>Linux</code> 内核中定义为 <code>struct rq</code>(不同版本稍有区别)</p>
+<h5 id="3-4-3-优先级"><a href="#3-4-3-优先级" class="headerlink" title="3.4.3 优先级"></a>3.4.3 优先级</h5><ul>
+<li>普通优先级(数值越大优先级越低) <code>100~139</code><ul>
+<li>适合于桌面&#x2F;服务器应用</li>
+</ul>
+</li>
+<li>实时优先级(数值越大优先级越高) <code>1~99</code><ul>
+<li>适合于工业控制&#x2F;音视频处理</li>
+</ul>
+</li>
+</ul>
+<h5 id="3-4-4-活动队列-active-queue"><a href="#3-4-4-活动队列-active-queue" class="headerlink" title="3.4.4 活动队列 active queue"></a>3.4.4 活动队列 active queue</h5><ul>
+<li>时间片还没有结束的所有进程都按照优先级放在活动队列中</li>
+<li><code>nr_active</code>：总共有多少个运行状态的进程</li>
+<li><code>queue[140]</code>：一个元素就是一个进程队列，相同优先级的进程按照 <code>FIFO</code> 规则进行排队调度，可以理解为数组下标就是优先级</li>
+<li>在该结构中选取进程<ol>
+<li>从 <code>0</code> 下标开始遍历 <code>queue[140]</code></li>
+<li>找到第一个非空队列，开始运行，调度完成</li>
+<li>遍历 <code>queue[140]</code> 时间复杂度是常数，但是还是太低效</li>
+</ol>
+</li>
+<li><code>bitmap[5]</code>：一共 <code>140</code> 个优先级，一共 <code>140</code> 个进程队列，为了提高查找非空队列的效率，就可以用 <code>5*32</code> 个比特位表示队列是否为空，这样，可以大大的提高查找效率(相比较于遍历，直接用下标更高效)<!-- ![1749277110985](image/进程概念/1749277110985.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749277110985.png" class=""></li>
+</ul>
+<h5 id="3-4-5-过期队列-expired-queue"><a href="#3-4-5-过期队列-expired-queue" class="headerlink" title="3.4.5 过期队列 expired queue"></a>3.4.5 过期队列 expired queue</h5><ul>
+<li>过期队列和活动队列结构一模一样</li>
+<li>过期队列上防止的进程，都是时间片耗尽的进程</li>
+<li>当活动队列上的进程都被处理完毕之后，对过期队列的进程进行时间片重新计算</li>
+</ul>
+<h5 id="3-4-6-active指针和expired指针"><a href="#3-4-6-active指针和expired指针" class="headerlink" title="3.4.6 active指针和expired指针"></a>3.4.6 active指针和expired指针</h5><ul>
+<li><code>active</code> 指针指向活动队列</li>
+<li><code>expired</code> 指针指向过期队列</li>
+<li>随着活动队列上的进程越来越少，过期队列上的进程越来越多，在合适的时候，需要交换 <code>active</code>指针和 <code>expired</code> 指针指向的内容</li>
+</ul>
+<h5 id="3-4-7-总结"><a href="#3-4-7-总结" class="headerlink" title="3.4.7 总结"></a>3.4.7 总结</h5><!-- ![1749277860278](image/进程概念/1749277860278.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749277860278.png" class="">
+<p>在系统中查找一个最合适调度的进程的时间复杂度是一个常数，不随着进程的增多而导致时间成本的增加，称之为 <code>O(1)</code> 调度算法</p>
+<h5 id="3-4-8-补充"><a href="#3-4-8-补充" class="headerlink" title="3.4.8 补充"></a>3.4.8 补充</h5><p><code>O(1)</code> 在 <code>2003</code> 年 <code>2.5</code> 内核引入，<code>2007</code> 年 <code>2.6.23</code> 被 <code>CFS(Completely Fair Scheduler)</code> 取代。转折点在于 <code>Ingo Molnar</code> 提交的 <code>CFS</code> 补丁(多核处理器普及暴露了 <code>O(1)</code> 负载均衡的缺陷)</p>
+<blockquote>
+<p>正如 Linus Torvalds 所言：<br><em>“CFS 的成功在于它用简洁的模型解决了复杂的公平性问题——这是对‘完美即简单’的最佳诠释”</em><br>当前 CFS已服务 Linux 超15年，其设计仍持续引领操作系统调度器的发展方向</p>
+</blockquote>
+<h3 id="4-环境变量"><a href="#4-环境变量" class="headerlink" title="4. 环境变量"></a>4. 环境变量</h3><h4 id="4-1-基本概念"><a href="#4-1-基本概念" class="headerlink" title="4.1 基本概念"></a>4.1 基本概念</h4><p>环境变量（<code>Environment Variables</code>）是操作系统和应用程序用于动态配置行为的关键机制，它们以<strong>键值对</strong>的形式存在，允许程序在运行时获取系统信息、用户偏好和配置参数</p>
+<ul>
+<li>比如我们在编写 <code>C/C++</code> 代码的时候，链接这一过程，我们并没有指定动静态库在哪里，但是照样可以链接成功，生成可执行程序，就是因为相关环境变量帮助编译器查找</li>
+<li>环境变量在系统中具有全局特性，通常有特殊用途</li>
+</ul>
+<!-- ![1752671100625](image/进程概念/1752671100625.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1752671100625.png" class="">
+
+<h4 id="4-2-常见环境变量"><a href="#4-2-常见环境变量" class="headerlink" title="4.2 常见环境变量"></a>4.2 常见环境变量</h4><ol>
+<li><p>系统级基础变量</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>作用</th>
+<th>典型值示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>PATH</strong></td>
+<td>可执行文件搜索路径</td>
+<td><code>/usr/bin:/bin:/usr/local/bin</code></td>
+</tr>
+<tr>
+<td><strong>HOME</strong></td>
+<td>当前用户主目录</td>
+<td><code>/home/username</code></td>
+</tr>
+<tr>
+<td><strong>USER</strong></td>
+<td>当前用户名</td>
+<td><code>john</code></td>
+</tr>
+<tr>
+<td><strong>LANG</strong></td>
+<td>系统默认语言</td>
+<td><code>en_US.UTF-8</code></td>
+</tr>
+<tr>
+<td><strong>PWD</strong></td>
+<td>当前工作目录</td>
+<td><code>/home/projects</code></td>
+</tr>
+<tr>
+<td><strong>SHELL</strong></td>
+<td>默认 <code>Shell</code> 程序路径</td>
+<td><code>/bin/bash</code></td>
+</tr>
+<tr>
+<td><strong>TMPDIR</strong></td>
+<td>临时文件目录</td>
+<td><code>/tmp</code></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>开发相关变量</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>作用</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LD_LIBRARY_PATH</strong></td>
+<td>动态库搜索路径</td>
+<td><code>/usr/local/lib</code></td>
+</tr>
+<tr>
+<td><strong>JAVA_HOME</strong></td>
+<td><code>Java</code> 安装路径</td>
+<td><code>/usr/lib/jvm/java-11</code></td>
+</tr>
+<tr>
+<td><strong>PYTHONPATH</strong></td>
+<td><code>Python</code> 模块搜索路径</td>
+<td><code>/home/user/python_libs</code></td>
+</tr>
+<tr>
+<td><strong>GOPATH</strong></td>
+<td><code>Go</code> 工作区路径</td>
+<td><code>/home/user/go</code></td>
+</tr>
+<tr>
+<td><strong>NODE_PATH</strong></td>
+<td><code>Node.js</code> 模块路径</td>
+<td><code>/usr/lib/node_modules</code></td>
+</tr>
+</tbody></table>
+</li>
+<li><p>应用配置变量</p>
+<table>
+<thead>
+<tr>
+<th>变量名</th>
+<th>作用</th>
+<th>示例值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>EDITOR</strong></td>
+<td>默认文本编辑器</td>
+<td><code>vim</code></td>
+</tr>
+<tr>
+<td><strong>BROWSER</strong></td>
+<td>默认浏览器</td>
+<td><code>firefox</code></td>
+</tr>
+<tr>
+<td><strong>HTTP_PROXY</strong></td>
+<td><code>HTTP</code> 代理地址</td>
+<td><code>http://proxy:8080</code></td>
+</tr>
+<tr>
+<td><strong>NO_PROXY</strong></td>
+<td>跳过代理的地址</td>
+<td><code>localhost,127.0.0.1</code></td>
+</tr>
+<tr>
+<td><strong>DEBUG</strong></td>
+<td>启用调试模式</td>
+<td><code>1</code></td>
+</tr>
+</tbody></table>
+</li>
+</ol>
+<h4 id="4-3-环境变量操作"><a href="#4-3-环境变量操作" class="headerlink" title="4.3 环境变量操作"></a>4.3 环境变量操作</h4><h5 id="4-3-1-命令行操作"><a href="#4-3-1-命令行操作" class="headerlink" title="4.3.1 命令行操作"></a>4.3.1 命令行操作</h5><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看所有变量</span></span><br><span class="line"><span class="built_in">printenv</span></span><br><span class="line"><span class="built_in">env</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看特定变量</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$PATH</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置临时变量（仅当前会话）</span></span><br><span class="line"><span class="built_in">export</span> API_KEY=<span class="string">&quot;secret123&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置持久变量（写入配置文件）</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;export JAVA_HOME=&quot;/opt/jdk&quot;&#x27;</span> &gt;&gt; ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除变量</span></span><br><span class="line"><span class="built_in">unset</span> TEMP_VAR</span><br><span class="line"></span><br><span class="line"><span class="comment"># 临时修改变量执行程序</span></span><br><span class="line">PATH=<span class="string">&quot;/custom/bin:<span class="variable">$PATH</span>&quot;</span> myapp</span><br></pre></td></tr></table></figure>
+<h5 id="4-3-2-系统调用"><a href="#4-3-2-系统调用" class="headerlink" title="4.3.2 系统调用"></a>4.3.2 系统调用</h5><p><strong><code>putenv</code> <code>VS</code> <code>setenv</code></strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">setenv_safe</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">char</span> var[] = <span class="string">&quot;TEST_VAR_SET=TestSetenv&quot;</span>; </span><br><span class="line">    setenv(<span class="string">&quot;TEST_VAR_SET&quot;</span>, <span class="string">&quot;TestSetenv&quot;</span>, <span class="number">1</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;setenv: %s\n&quot;</span>, getenv(<span class="string">&quot;TEST_VAR_SET&quot;</span>));</span><br><span class="line">    <span class="comment">// 函数返回后，栈内存被回收，但环境变量仍然有效</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">void</span> <span class="title function_">putenv_deadly</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="type">char</span> var[] = <span class="string">&quot;TEST_VAR_PUT=TestPutenv&quot;</span>;</span><br><span class="line">    putenv(var);                         <span class="comment">// 引用栈内存</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;putenv: %s\n&quot;</span>, getenv(<span class="string">&quot;TEST_VAR_PUT&quot;</span>)); <span class="comment">// 暂时能访问</span></span><br><span class="line">    <span class="comment">// 函数返回后，栈内存被回收 -&gt; 环境变量指向无效地址！</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    setenv_safe();</span><br><span class="line">    putenv_deadly();</span><br><span class="line">    </span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n函数返回后：\n&quot;</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;setenv 设置: %s\n&quot;</span>, getenv(<span class="string">&quot;TEST_VAR_SET&quot;</span>)); <span class="comment">// 仍然有效</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 访问 putenv 设置的环境变量 -&gt; 未定义行为！</span></span><br><span class="line">    <span class="type">char</span> *deadly = getenv(<span class="string">&quot;TEST_VAR_PUT&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span>(deadly) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;putenv 设置: %s\n&quot;</span>, deadly);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;TestPutenv 不存在\n&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">$ ./env</span><br><span class="line">setenv: TestSetenv</span><br><span class="line">putenv: TestPutenv</span><br><span class="line"></span><br><span class="line">函数返回后：</span><br><span class="line">setenv 设置: TestSetenv</span><br><span class="line">TestPutenv 不存在</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-4-环境变量组织方式"><a href="#4-4-环境变量组织方式" class="headerlink" title="4.4 环境变量组织方式"></a>4.4 环境变量组织方式</h4><!-- ![1752671201352](image/进程概念/1752671201352.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1752671201352.png" class="">
+
+<!-- ![1749279850085](image/进程概念/1749279850085.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749279850085.png" class="">
+<p>每个程序都会收到一张环境变量表，环境变量表是一个字符指针数组，每个指针指向一个以 <code>&#39;\0&#39;</code> 结尾的环境字符串</p>
+<h4 id="4-5-获取环境变量"><a href="#4-5-获取环境变量" class="headerlink" title="4.5 获取环境变量"></a>4.5 获取环境变量</h4><ul>
+<li><code>main</code> 函数三个参数<ol>
+<li><code>int argv</code> 参数计数</li>
+<li><code>char *argv</code> 参数向量</li>
+<li><code>char *envp/environ</code> 环境变量(非标准)</li>
+</ol>
+</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[], <span class="type">char</span> *env[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; env[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, env[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>通过第三方变量 <code>environ</code> 获取</li>
+</ul>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">extern</span> <span class="type">char</span> **environ;</span><br><span class="line">    <span class="type">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; environ[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, environ[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>libc中定义的全局变量environ指向环境变量表，environ没有包含在任何头文件中，所以在使用时要注意用extern声明</p>
+</blockquote>
+<h4 id="4-6-环境变量的全局属性"><a href="#4-6-环境变量的全局属性" class="headerlink" title="4.6 环境变量的全局属性"></a>4.6 环境变量的全局属性</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">char</span> *env = getenv(<span class="string">&quot;MYENV&quot;</span>);</span><br><span class="line">    <span class="keyword">if</span> (env)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>, env);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./test</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$MYENV</span></span><br><span class="line">$ </span><br></pre></td></tr></table></figure>
+
+<p>可以看到，该环境变量 <code>MYENV</code> 根本不存在，原因也很简单，因为我们的程序只是读取这个环境变量 <code>MYENV</code>，但是并没有设置这个环境变量<br>只需要在运行程序之前设置环境变量就可以看到其真容了</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">export</span> MYENV=<span class="string">&quot;Hello World!&quot;</span></span><br><span class="line">$ ./test</span><br><span class="line">Hello World!</span><br><span class="line">$ <span class="built_in">echo</span> <span class="variable">$MYENV</span></span><br><span class="line">Hello World!</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>Shell</code> 中设置环境变量，再运行程序，就能得到 <code>Shell</code> 父进程设置的环境变量，这也从侧面敲击出环<strong>境变量具有全局属性</strong>(注意子进程设置的环境变量不会影响到父进程)</p>
+<ul>
+<li>全局属性<ul>
+<li>环境变量存储在进程空间的全局区域</li>
+<li>任何函数都可以直接访问</li>
+</ul>
+</li>
+<li>继承属性<ul>
+<li>每个进程创建时，会继承父进程的环境变量副本</li>
+<li><code>Shell</code> → 我们的程序：环境变量自动传递</li>
+</ul>
+</li>
+</ul>
+<!-- ![1752671336378](image/进程概念/1752671336378.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1752671336378.png" class="">
+
+<h3 id="5-程序地址空间"><a href="#5-程序地址空间" class="headerlink" title="5. 程序地址空间"></a>5. 程序地址空间</h3><blockquote>
+<p>研究平台-&gt;Kernel 2.6.32(32位平台)</p>
+</blockquote>
+<h4 id="5-1-程序地址空间回顾"><a href="#5-1-程序地址空间回顾" class="headerlink" title="5.1 程序地址空间回顾"></a>5.1 程序地址空间回顾</h4><p>在学习 <code>C</code> 语言的时候，遇到过这样的空间布局</p>
+<!-- ![1749285228110](image/进程概念/1749285228110.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749285228110.png" class="">
+<p>可以通过代码观察分布情况</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> g_un_val;</span><br><span class="line"><span class="type">int</span> g_val = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[], <span class="type">char</span> *env[])</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">const</span> <span class="type">char</span> *str = <span class="string">&quot;Hello world\n&quot;</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Code address: %p\n&quot;</span>, main);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Initial global address: %p\n&quot;</span>, &amp;g_val);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Uninitialized global address: %p\n&quot;</span>, &amp;g_un_val);</span><br><span class="line"></span><br><span class="line">    <span class="type">static</span> <span class="type">int</span> st = <span class="number">10</span>;</span><br><span class="line">    <span class="type">char</span> *heap1 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">10</span>);</span><br><span class="line">    <span class="type">char</span> *heap2 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">4</span>);</span><br><span class="line">    <span class="type">char</span> *heap3 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">7</span>);</span><br><span class="line">    <span class="type">char</span> *heap4 = (<span class="type">char</span> *)<span class="built_in">malloc</span>(<span class="number">15</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Heap address: %p\n&quot;</span>, heap1);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Heap address: %p\n&quot;</span>, heap2);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Heap address: %p\n&quot;</span>, heap3);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Heap address: %p\n&quot;</span>, heap4);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Static address:%p\n&quot;</span>, &amp;st);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Stack address:%p\n&quot;</span>, &amp;heap1);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Stack address:%p\n&quot;</span>, &amp;heap2);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Stack address:%p\n&quot;</span>, &amp;heap3);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Stack address:%p\n&quot;</span>, &amp;heap4);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;Read only address:%p\n&quot;</span>, str);</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; i &lt; argc; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;argv[%d]: %p\n&quot;</span>, i, (<span class="type">void</span>*)argv[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="number">0</span>; env[i]; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;env[%d]: %p\n&quot;</span>, i, (<span class="type">void</span>*)env[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line">$ gcc address.c -o address</span><br><span class="line">$ ./address </span><br><span class="line">Code address: 0x56b7a8fb0189</span><br><span class="line">Initial global address: 0x56b7a8fb3010</span><br><span class="line">Uninitialized global address: 0x56b7a8fb301c</span><br><span class="line">Heap address: 0x56b7aabf16b0</span><br><span class="line">Heap address: 0x56b7aabf16d0</span><br><span class="line">Heap address: 0x56b7aabf16f0</span><br><span class="line">Heap address: 0x56b7aabf1710</span><br><span class="line">Static address:0x56b7a8fb3014</span><br><span class="line">Stack address:0x7ffd62793970</span><br><span class="line">Stack address:0x7ffd62793978</span><br><span class="line">Stack address:0x7ffd62793980</span><br><span class="line">Stack address:0x7ffd62793988</span><br><span class="line">Read only address:0x56b7a8fb1008</span><br><span class="line">argv[0]: 0x7ffd6279425e</span><br><span class="line"><span class="built_in">env</span>[0]: 0x7ffd62794268</span><br><span class="line"><span class="built_in">env</span>[1]: 0x7ffd62794278</span><br><span class="line"><span class="built_in">env</span>[2]: 0x7ffd6279428c</span><br><span class="line"><span class="built_in">env</span>[3]: 0x7ffd627942a9</span><br><span class="line"><span class="built_in">env</span>[4]: 0x7ffd627942b7</span><br><span class="line"><span class="built_in">env</span>[5]: 0x7ffd627942d1</span><br><span class="line"><span class="built_in">env</span>[6]: 0x7ffd627942e8</span><br><span class="line"><span class="built_in">env</span>[7]: 0x7ffd627942f4</span><br><span class="line"><span class="built_in">env</span>[8]: 0x7ffd62794309</span><br><span class="line"><span class="built_in">env</span>[9]: 0x7ffd62794382</span><br><span class="line"><span class="built_in">env</span>[10]: 0x7ffd62794391</span><br><span class="line"><span class="built_in">env</span>[11]: 0x7ffd627943a2</span><br><span class="line"><span class="built_in">env</span>[12]: 0x7ffd62794abb</span><br><span class="line"><span class="built_in">env</span>[13]: 0x7ffd62794adb</span><br><span class="line"><span class="built_in">env</span>[14]: 0x7ffd62794b62</span><br><span class="line"><span class="built_in">env</span>[15]: 0x7ffd62794b95</span><br><span class="line"><span class="built_in">env</span>[16]: 0x7ffd62794bb4</span><br><span class="line"><span class="built_in">env</span>[17]: 0x7ffd62794bd6</span><br><span class="line"><span class="built_in">env</span>[18]: 0x7ffd62794bed</span><br><span class="line"><span class="built_in">env</span>[19]: 0x7ffd62794c01</span><br><span class="line"><span class="built_in">env</span>[20]: 0x7ffd62794c21</span><br><span class="line"><span class="built_in">env</span>[21]: 0x7ffd62794c2a</span><br><span class="line"><span class="built_in">env</span>[22]: 0x7ffd62794c6a</span><br><span class="line"><span class="built_in">env</span>[23]: 0x7ffd62794c72</span><br><span class="line"><span class="built_in">env</span>[24]: 0x7ffd62794c86</span><br><span class="line"><span class="built_in">env</span>[25]: 0x7ffd62794ca5</span><br><span class="line"><span class="built_in">env</span>[26]: 0x7ffd62794cc9</span><br><span class="line"><span class="built_in">env</span>[27]: 0x7ffd62794cea</span><br><span class="line"><span class="built_in">env</span>[28]: 0x7ffd62794d19</span><br><span class="line"><span class="built_in">env</span>[29]: 0x7ffd62794db1</span><br><span class="line"><span class="built_in">env</span>[30]: 0x7ffd62794df2</span><br><span class="line"><span class="built_in">env</span>[31]: 0x7ffd62794e6d</span><br><span class="line"><span class="built_in">env</span>[32]: 0x7ffd62794f40</span><br><span class="line"><span class="built_in">env</span>[33]: 0x7ffd62794f76</span><br><span class="line"><span class="built_in">env</span>[34]: 0x7ffd62794f8a</span><br><span class="line"><span class="built_in">env</span>[35]: 0x7ffd62794fe2</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-2-虚拟地址"><a href="#5-2-虚拟地址" class="headerlink" title="5.2 虚拟地址"></a>5.2 虚拟地址</h4><p>来这样一段代码引入</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> g_val = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">&quot;Fork error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Child[%d]  address:%p\n&quot;</span>, getpid(), &amp;g_val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Parent[%d] address:%p\n&quot;</span>, getpid(), &amp;g_val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./test </span><br><span class="line">Parent[1518857] address:0x5fdd891b2010</span><br><span class="line">Child[1518858]  address:0x5fdd891b2010 </span><br></pre></td></tr></table></figure>
+
+<p>为什么地址是相同的呢？</p>
+<ul>
+<li>子进程通过 <code>fork()</code> 创建时，<strong>会继承父进程的完整的虚拟内存地址空间</strong></li>
+<li>父子进程的虚拟地址布局相同，所以显示相同的地址值</li>
+</ul>
+<p>修改一下变量会不会导致地址不同呢?🤔</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;sys/types.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">int</span> g_val = <span class="number">6</span>;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="type">pid_t</span> pid = fork();</span><br><span class="line">    <span class="keyword">if</span> (pid &lt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        perror(<span class="string">&quot;Fork error&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> (pid == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        g_val = <span class="number">666</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Child[%d]  [g_val:%d] address:%p\n&quot;</span>, getpid(), g_val, &amp; g_val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">        sleep(<span class="number">2</span>);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;Parent[%d] [g_val:%d]   address:%p\n&quot;</span>, getpid(), g_val, &amp;g_val);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>运行结果</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$ ./test </span><br><span class="line">Child[1519153]  [g_val:666] address:0x6034485e1010</span><br><span class="line">Parent[1519152] [g_val:6]   address:0x6034485e1010</span><br></pre></td></tr></table></figure>
+<p>输出的变量值不一样，但是地址却是一样的😮</p>
+<ul>
+<li>变量既然值不相同，所以父子进程输出的变量<strong>绝对不是同一个变量</strong></li>
+<li>说明我们看到的地址<strong>肯定不是物理地址</strong><br>在 <code>Linux</code> 下，这种地址叫做<strong>虚拟地址</strong>。我们<strong>使用 <code>C/C++</code> 时候所看到的地址，全都是虚拟地址!</strong>，物理地址，用户一般看不到，由操作系统管理</li>
+</ul>
+<h4 id="5-3-进程地址空间"><a href="#5-3-进程地址空间" class="headerlink" title="5.3 进程地址空间"></a>5.3 进程地址空间</h4><p>学到进程之后，说程序地址空间可能没有那么的准确，准确的说应该是 进程地址空间，如下图👇</p>
+<!-- ![1749293043608](image/进程概念/1749293043608.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749293043608.png" class="">
+<ul>
+<li>同一个变量，地址相同，其实是虚拟地址相同，内容不同是因为映射到了不同的物理地址</li>
+</ul>
+<h4 id="5-4-初识虚拟内存"><a href="#5-4-初识虚拟内存" class="headerlink" title="5.4 初识虚拟内存"></a>5.4 初识虚拟内存</h4><p><strong>虚拟内存的核心概念</strong></p>
+<ol>
+<li><p>基本定义</p>
+<ul>
+<li>虚拟内存（<code>Virtual Memory</code>）是计算机系统内存管理的一种技术，它<strong>使得应用程序认为它拥有连续可用的内存</strong>（一个连续完整的地址空间,这个空间通常比实际物理内存大得多），而实际上，它通常是被分隔成多个物理内存碎片，还有部分暂时存储在外部磁盘存储器上，在需要时进行数据交换</li>
+<li>虚拟内存的主要目的是提供比物理内存更大的地址空间，并且提供<strong>内存保护</strong>和<strong>多任务隔离</strong></li>
+</ul>
+</li>
+<li><p>核心组件</p>
+<ul>
+<li><strong>虚拟地址 (VA)</strong>：进程使用的地址</li>
+<li><strong>物理地址 (PA)</strong>：实际内存硬件中的地址</li>
+<li><strong>内存管理单元 (MMU)</strong>：硬件组件，负责将虚拟地址转换为物理地址</li>
+<li><strong>页表 (Page Table)</strong>：操作系统维护的数据结构，存储虚拟页到物理页框的映射</li>
+</ul>
+</li>
+<li><p>地址空间划分<br>虚拟内存通常划分为固定大小的块：</p>
+<ul>
+<li><strong>页 (Page)</strong>：虚拟内存中的块（通常<code>4KB</code>）</li>
+<li><strong>页框 (Frame)</strong>：物理内存中的块（大小与页相同）</li>
+</ul>
+</li>
+</ol>
+<p><strong>虚拟内存的关键特性</strong></p>
+<ol>
+<li><p>内存隔离与保护</p>
+<ul>
+<li>每个进程有独立的地址空间</li>
+<li>防止进程意外访问其他进程的内存</li>
+<li>通过页表权限位实现只读、可执行等保护</li>
+</ul>
+</li>
+<li><p>写时复制 (<code>Copy-On-Write</code>)</p>
+<ul>
+<li><code>fork()</code>创建子进程时不复制内存</li>
+<li>父子进程共享物理页</li>
+<li>当任一进程尝试写入时，才复制该页</li>
+<li>极大提高进程创建效率</li>
+</ul>
+</li>
+<li><p>内存映射文件</p>
+<ul>
+<li>文件可以直接映射到虚拟地址空间</li>
+<li>访问文件就像访问内存一样</li>
+<li>操作系统负责按需加载文件内容</li>
+</ul>
+</li>
+</ol>
+<p><code>Linux</code> 下进程的地址空间的所有信息的结构体是 <code>mm_struct</code> (内存描述符)。每个进程只有一个 <code>mm_struct</code> 结构，在每个进程的 <code>task_struct</code> 结构中，有一个指向该进程的结构</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">task_struct</span> &#123;</span></span><br><span class="line"><span class="comment">/*……*/</span></span><br><span class="line">   <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">mm</span>, // 对于普通用户进程来说该字段指向其虚拟地址空间的用户空间部分，对于内核线程来说这部分为 <span class="title">NULL</span></span></span><br><span class="line"><span class="class">   <span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">active_mm</span>;</span><span class="comment">// 该字段是内核线程使用的。当该进程是内核线程时，其 mm 字段为 NULL，表示没有内存地址空间，但也不是真的没有，因为所有进程关于内核的映射都是一样的，内核线程可以使用任意进程的地址空间</span></span><br><span class="line"><span class="comment">/*……*/</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以说 <code>mm_struct</code> 是对整个用户空间的描述。每一个进程都有自己独立的 <code>mm_struct</code>，这样每一个进程都有自己独立的地址空间，互不干扰</p>
+<!-- ![1749295970051](image/进程概念/1749295970051.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749295970051.png" class="">
+
+<p><code>mm_struct</code> 在内核源码中所在的文件是 <code>mm_types.h</code></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> &#123;</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">vm_area_struct</span> * <span class="title">mmap</span>;</span><span class="comment">// 指向虚拟区间(VMA)链表</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rb_root</span> <span class="title">mm_rb</span>;</span><span class="comment">// 红黑树</span></span><br><span class="line">   <span class="type">unsigned</span> <span class="type">long</span> task_size; <span class="comment">// 具有该结构体的进程的虚拟地址空间的大小</span></span><br><span class="line"><span class="comment">/*……*/</span></span><br><span class="line">   <span class="comment">// 代码段、数据段、堆栈段、参数段以及环境段的起始和结束地址</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> start_code, end_code, start_data, end_data;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> start_brk, brk, start_stack;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> arg_start, arg_end, env_start, env_end;</span><br><span class="line"><span class="comment">/*……*/</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>每个进程都有自己独立的 <code>mm_struct</code>，操作系统肯定要将这么多的进程的 <code>mm_struct</code> 组织起来，再进行统一的管理，组织的方式有两种👇</p>
+<ol>
+<li>当虚拟区较少时采用单链表，由 <code>mmap</code> 指针指向这个链表</li>
+<li>当虚拟区较多时采用红黑树，由 <code>mm_rb</code> 指向这棵树</li>
+</ol>
+<p><code>Linux</code> 内核使用 <code>vm_area_struct</code> 结构体来表示一个独立的虚拟内存区域(<code>VMA</code>)，由于不同的虚拟内存区域功能和内部机制都不同，因此一个进程使用多个 <code>vm_area_struct</code> 结构来分别表示不同类型的虚拟内存区域。上面提到的两种组织方式使用的就是 <code>vm_area_struct</code> 结构来连接各个 <code>VMA</code>，方便进程进行快速访问</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">vm_area_struct</span> &#123;</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> vm_start;<span class="comment">// 开始处</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> vm_end;<span class="comment">// 结束处</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">vm_area_struct</span> *<span class="title">vm_next</span>, *<span class="title">vm_prev</span>;</span><span class="comment">// 前后指针</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">rb_node</span> <span class="title">vm_rb</span>;</span><span class="comment">// 红黑树中的位置</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> rb_subtree_gap;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">mm_struct</span> *<span class="title">vm_mm</span>;</span><span class="comment">// 所属的 mm_struct</span></span><br><span class="line">    <span class="type">pgprot_t</span> vm_page_prot;</span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> vm_flags;<span class="comment">// 标志位</span></span><br><span class="line">   <span class="class"><span class="keyword">union</span> &#123;</span></span><br><span class="line">        <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">            <span class="class"><span class="keyword">struct</span> <span class="title">rb_node</span> <span class="title">rb</span>;</span></span><br><span class="line">            <span class="type">unsigned</span> <span class="type">long</span> rb_subtree_last;</span><br><span class="line">        &#125; linear;</span><br><span class="line">        <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">nonlinear</span>;</span></span><br><span class="line">    &#125; shared;</span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">list_head</span> <span class="title">anon_vma_chain</span>;</span> </span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">anon_vma</span> *<span class="title">anon_vma</span>;</span></span><br><span class="line">    <span class="type">const</span> <span class="class"><span class="keyword">struct</span> <span class="title">vm_operations_struct</span> *<span class="title">vm_ops</span>;</span><span class="comment">//vma对应的实际操作</span></span><br><span class="line">    <span class="type">unsigned</span> <span class="type">long</span> vm_pgoff;	<span class="comment">//文件映射的偏移量</span></span><br><span class="line">    <span class="class"><span class="keyword">struct</span> <span class="title">file</span> * <span class="title">vm_file</span>;</span><span class="comment">//映射的文件</span></span><br><span class="line">    <span class="type">void</span> * vm_private_data;<span class="comment">//私有数据</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<!-- ![1749298979318](image/进程概念/1749298979318.png) -->
+<img src="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/1749298979318.png" class="">
+
+<h4 id="5-5-为什么要有虚拟地址空间"><a href="#5-5-为什么要有虚拟地址空间" class="headerlink" title="5.5 为什么要有虚拟地址空间"></a>5.5 为什么要有虚拟地址空间</h4><p>不妨想一想如果没有虚拟地址空间，程序直接可以操作物理内存会发生上什么?🤔</p>
+<p>1️⃣ <strong>内存安全问题（恶意访问）</strong></p>
+<ul>
+<li>任何程序可以随意读写整个物理内存</li>
+<li>恶意程序可以：<ul>
+<li>窃取其他进程的密码、加密密钥等敏感数据</li>
+<li>篡改操作系统内核代码</li>
+<li>破坏其他关键程序的内存数据</li>
+</ul>
+</li>
+<li>比如：银行程序的内存被恶意程序直接读取，客户账户信息全部泄露</li>
+</ul>
+<p>2️⃣ <strong>系统稳定性崩溃</strong></p>
+<ul>
+<li>单个程序的指针错误会导致全系统崩溃：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> *ptr = (<span class="type">int</span>*)<span class="number">0x12345678</span>; <span class="comment">// 随意指向物理地址</span></span><br><span class="line">*ptr = <span class="number">42</span>; <span class="comment">// 可能覆盖操作系统关键数据结构</span></span><br></pre></td></tr></table></figure></li>
+<li>结果：整个系统蓝屏&#x2F;死机，需要重启</li>
+<li>据统计，这类错误在早期 <code>DOS</code> 系统中导致 &gt; <code>40%</code> 的系统崩溃</li>
+</ul>
+<p>3️⃣ <strong>内存碎片化灾难</strong></p>
+<ul>
+<li>物理内存分配示意图：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[程序A][空闲][程序B][程序C][空闲][程序D]</span><br></pre></td></tr></table></figure></li>
+<li>当程序B退出后：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[程序A][空闲][空闲][程序C][空闲][程序D]</span><br></pre></td></tr></table></figure></li>
+<li>新程序E需要连续内存：即使总空闲足够，但因不连续无法加载</li>
+<li>最终导致：<strong>内存明明有空闲却无法使用</strong>的窘境</li>
+</ul>
+<p>4️⃣ <strong>多进程协作不可能</strong></p>
+<ul>
+<li>所有程序必须使用<strong>绝对物理地址</strong></li>
+<li>冲突示例：<ul>
+<li>程序1认为自己的数据在<code>0x1000</code></li>
+<li>程序2也认为自己的数据在<code>0x1000</code></li>
+<li>操作系统无法同时满足两个程序</li>
+</ul>
+</li>
+<li>结果：每次只能运行一个程序（如早期的 <code>DOS</code> 系统）</li>
+</ul>
+<p>5️⃣ <strong>安全隔离机制失效</strong></p>
+<ul>
+<li>用户程序可直接修改内核内存：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 普通用户程序</span></span><br><span class="line"><span class="type">void</span> *kernel_mem = (<span class="type">void</span>*)<span class="number">0x80000000</span>; </span><br><span class="line"><span class="built_in">memset</span>(kernel_mem, <span class="number">0</span>, <span class="number">1024</span>); <span class="comment">// 清除内核数据结构</span></span><br></pre></td></tr></table></figure></li>
+<li>后果：权限系统形同虚设，普通用户可获取 <code>root</code> 权限</li>
+</ul>
+<p>6️⃣ <strong>内存浪费严重</strong></p>
+<ul>
+<li>每个程序需要加载完整副本：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">程序A：加载libc.so → 物理地址0x100000-0x200000</span><br><span class="line">程序B：加载libc.so → 物理地址0x300000-0x400000</span><br></pre></td></tr></table></figure></li>
+<li>相同库在内存中有多份拷贝</li>
+<li>研究显示：这种冗余会浪费 <code>40%-60%</code> 的物理内存</li>
+</ul>
+<p>7️⃣ <strong>开发复杂度剧增</strong></p>
+<ul>
+<li>程序员必须：<ul>
+<li>手动管理内存地址冲突😱</li>
+<li>知道所有硬件的物理地址映射😱</li>
+<li>为每个部署环境重写地址相关代码😱</li>
+</ul>
+</li>
+<li>示例代码：<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 不同机器需要不同地址</span></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> MACHINE_A</span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VIDEO_MEM 0xB8000</span></span><br><span class="line"><span class="meta">#<span class="keyword">else</span> </span></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VIDEO_MEM 0xA0000</span></span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br></pre></td></tr></table></figure></li>
+<li>结果：开发效率降低10倍以上</li>
+</ul>
+<p><strong>虚拟地址空间如何解决这些问题</strong></p>
+<p><strong>内存安全沙箱</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 在现代系统中</span></span><br><span class="line"><span class="built_in">printf</span>(<span class="string">&quot;变量地址：%p\n&quot;</span>, &amp;var); <span class="comment">// 输出虚拟地址0x7ffe3b5a8f3c</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>实际物理地址对程序不可见</li>
+<li>每次访问都经过 <code>MMU</code> 转换：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">进程A：虚拟地址0x1000 → 物理地址0x2000</span><br><span class="line">进程B：虚拟地址0x1000 → 物理地址0x3000</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p><strong>连续虚拟空间 vs 分散物理内存</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">虚拟地址空间：</span><br><span class="line">0x400000-0x401000: 代码段</span><br><span class="line">0x600000-0x601000: 堆 ← 连续地址</span><br><span class="line">0x7ffe0000-0x7ffe1000: 栈</span><br><span class="line"></span><br><span class="line">物理内存：</span><br><span class="line">代码段 → 帧1023</span><br><span class="line">堆部分1 → 帧2012</span><br><span class="line">堆部分2 → 帧3015</span><br><span class="line">栈 → 帧1522</span><br></pre></td></tr></table></figure>
+
+<p><strong>共享内存优化</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">进程A：虚拟地址0x400000 → 物理帧1000 (libc)</span><br><span class="line">进程B：虚拟地址0x400000 → 物理帧1000 (相同libc)</span><br><span class="line">进程C：虚拟地址0x400000 → 物理帧1000 (相同libc)</span><br></pre></td></tr></table></figure>
+
+
+<p>正如计算机科学家 <code>David Wheeler</code> 所言：</p>
+<blockquote>
+<p><strong>“在计算机科学中，没有什么问题是不能通过增加一个中间层来解决的，但这通常会产生新问题”</strong></p>
+</blockquote>
+<p>在虚拟内存带来便利的同时，同样也产生了新的挑战(比如性能开销、内存占用、复杂性、确定性等)</p>
+<blockquote>
+<p><strong>“所有问题都可以通过增加一个间接层来解决，除了太多间接层的问题—Fred Brooks《人月神话》”</strong></p>
+</blockquote>
+<p><strong>在简洁与复杂、安全与效率、抽象与具体之间，寻找精妙的平衡点。而每一次这样的平衡，都推动计算科学向前迈进一大步</strong></p>
+
+                
+                <p class="end">__END__</p>
+            </div>
+            <div class="article-footer">
+                <div class="suffix-box">
+    <div class="suffix-box-left">
+        <img src="/image/sidebar/avatar.jpg" alt="Live For Code">
+    </div>
+    <div class="suffix-box-right">
+        <span class="suffix-box-title">文章作者：</span>Live For Code
+        <br>
+        <span class="suffix-box-title">文章出处：</span><a href="/2025/11/22/%E5%88%9D%E8%AF%86%E8%BF%9B%E7%A8%8B-%E6%A6%82%E5%BF%B5/" target="_blank">初识进程-概念</a>
+        <br>
+        <span class="suffix-box-title">作者签名：</span>简单地活着, 肆意又精彩.
+        <br>
+        <span class="suffix-box-title">关于主题：</span><a href="https://github.com/first19326/Hexo-LiveForCode" target="_blank">Hexo - Live For Code</a>
+        <br>
+        <span class="suffix-box-title">版权声明：</span>文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" title="BY-NC-SA" target="_blank">BY-NC-SA</a> 许可协议，转载请注明出处
+        <br>
+    </div>
+    <div style="clear: both;"></div>
+</div>
+                
+                
+                <div class="article-prev-next">
+                    
+                    
+                        <a href="/2025/11/21/Shell%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" class="next-prefix">» </a> 下一篇：    <a href="/2025/11/21/Shell%E8%BF%90%E8%A1%8C%E5%8E%9F%E7%90%86/" title="发布于 2025-11-21 09:42">Shell运行原理</a>
+                    
+                </div>
+            </div>
+            
+    <div class="article-comments">
+        
+            <div class="comments-title">
+                评论列表
+            </div>
+        
+        <div class="comments-content"></div>
+    </div>
+    
+ 
+        </div>
+    
+</div>
+    <div id="footer">
+    <div><span class='face'>ღゝ◡╹)ノ♡</span></div><div>【人生若只如初见<span><i class='iconfont icon-like-fill'></i></span>何事秋风悲画扇】</div><div>&copy; 2020-2023 WorstOne. All Rights Reserved.</div>
+</div>
+    <div id="sidebar">
+    <div class="menu-wrap" style="display:none;">
+        
+            <div class="menu-notice">
+                <span class="iconfont icon-notice"></span>
+                <div class="notice">
+                    <span>简单地活着，肆意而又精彩！</span>
+                </div>
+            </div>
+        
+        <nav class="menu">
+            <div class="menu-introduce"> 
+                <div class="introduce-avatar">
+                    <img src="/image/sidebar/avatar.jpg">
+                </div> 
+                <div class="introduce-info"> 
+                    <div class="introduce-user">
+                        
+                            <a href="https://worstone.cn" target="_blank"><span>Live For Code</span></a>
+                        
+                    </div>
+                </div> 
+            </div> 
+            <div class="menu-list">
+                <ul>
+                    
+                        <li class=""><a href="/" class="" target="_self"><span class="iconfont icon-home-fill"></span>首页</a></li>
+                    
+                        <li class=""><a href="/category" class="" target="_self"><span class="iconfont icon-folder-fill"></span>分类</a></li>
+                    
+                        <li class=""><a href="/tag" class="" target="_self"><span class="iconfont icon-discount-fill"></span>标签</a></li>
+                    
+                        <li class=""><a href="/archive" class="" target="_self"><span class="iconfont icon-calendar-fill"></span>归档</a></li>
+                    
+                        <li class=""><a href="/donate" class="" target="_self"><span class="iconfont icon-heart-fill"></span>赞赏</a></li>
+                    
+                        <li class=""><a href="/about" class="" target="_self"><span class="iconfont icon-about-fill"></span>关于</a></li>
+                    
+                        <li class=""><a href="/atom.xml" class="" target="_blank"><span class="iconfont icon-rss"></span>订阅</a></li>
+                    
+                        <li class=""><a href="javascript:;" class="search" target="_self"><span class="iconfont icon-search-menu"></span>搜索</a></li>
+                    
+                        <li class=""><a href="/comment" class="" target="_self"><span class="iconfont icon-comments-fill"></span>留言板</a></li>
+                    
+                        <li class=""><a href="/friend" class="" target="_self"><span class="iconfont icon-link"></span>友情链接</a></li>
+                    
+                </ul> 
+            </div> 
+            <div class="menu-link">
+                <div class="box">
+                    <div class="image-box"></div>
+                </div>
+                
+                    <a name="知乎" href="https://zhihu.com/people/worstone-29" class="" target="_blank" data=""><span class="iconfont icon-zhihu"></span></a>
+                
+                    <a name="微博" href="https://weibo.com/u/5749847477" class="" target="_blank" data=""><span class="iconfont icon-weibo"></span></a>
+                
+                    <a name="QQ" href="javascript:;" class="image" target="_self" data="/image/sidebar/qq.png"><span class="iconfont icon-qq"></span></a>
+                
+                    <a name="微信" href="javascript:;" class="" target="_self" data=""><span class="iconfont icon-wechat"></span></a>
+                
+                    <a name="GitHub" href="https://github.com/first19326" class="" target="_blank" data=""><span class="iconfont icon-github"></span></a>
+                
+            </div> 
+        </nav>
+        <button class="menu-button-close"></button>
+        <div class="morph-shape" id="morph-shape" data-morph-open="M-7.312,0H15c0,0,66,113.339,66,399.5C81,664.006,15,800,15,800H-7.312V0z;M-7.312,0H100c0,0,0,113.839,0,400c0,264.506,0,400,0,400H-7.312V0z">
+            <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 100 800" preserveAspectRatio="none">
+                <path d="M-7.312,0H0c0,0,0,113.839,0,400c0,264.506,0,400,0,400h-7.312V0z"/>
+            </svg>
+        </div>
+    </div>
+    <button class="menu-button-open">MENU</button>
+    <div class="menu-cover"></div>
+</div>
+    <link type="text/css" rel="stylesheet" href="/css/search.css">
+<script type="text/javascript" src="/js/iscroll.js"></script>
+<script type="text/javascript" src="/js/instantsearch.min.js"></script>
+<div class="search-window">
+    <div class="search-content">
+        <div class="search-content-icon">
+            <i class="iconfont icon-search"></i>
+        </div>
+        <div id="search-input" class="search-input"></div>
+    </div>
+
+    <div class="search-scroll">
+        <div class="search-result">
+            <div id="search-stats" class="search-stats"></div>
+            <div id="search-hits"></div>
+            <div id="search-pagination" class="search-pagination"></div>
+        </div>
+    </div>
+
+    <span class="search-close-icon">
+        <i class="iconfont icon-close"></i>
+    </span>
+</div>
+    <div id="tools">
+    <div class="progressbar-top"></div>
+    
+    <link type="text/css" rel="stylesheet" href="/css/APlayer.css">
+    <script type="text/javascript" src="/js/APlayer.min.js"></script>
+    <script type="text/javascript" src="/js/Meting.min.js"></script>
+    <script>
+        var meting_api = 'https://api.i-meto.com/meting/api?server=:server&type=:type&id=:id&auth=:auth&r=:r';
+    </script>
+    <meting-js id="3778678" lrcshow="false" server="netease" type="playlist" fixed="true" autoplay="false" loop="all" order="random" preload="auto" volume="0.67" mutex="true"></meting-js>
+
+    <div class="wrap-right">
+    <div class="wrap-right-hide">
+         <div class="wrap-right-button favorites">
+            <div class="iconbox" switch="false">
+                <span class="iconfont icon-favorites"></span>
+            </div>
+            <span class="icontext">关注</span>
+         </div>
+        <div class="wrap-right-button search">
+            <div class="iconbox">
+                <span class="iconfont icon-search-menu"></span>
+            </div>
+            <span class="icontext">搜索</span>
+        </div>
+        <div class="wrap-right-button menu-button">
+            <div class="iconbox">
+                <span class="iconfont icon-menu"></span>
+            </div>
+            <span class="icontext">菜单</span>
+        </div>
+        <div class="wrap-right-button mode">
+            <div class="light">
+                <div class="iconbox">
+                    <span class="iconfont icon-daymode"></span>
+                </div>
+                <span class="icontext">浅色模式</span>
+            </div>
+            <div class="dark">
+                <div class="iconbox">
+                    <span class="iconfont icon-nightmode-fill"></span>
+                </div>
+                <span class="icontext">深色模式</span>
+            </div>
+        </div>
+        <div class="wrap-right-button bottom">
+            <div class="iconbox">
+                <span class="iconfont icon-top"></span>
+            </div>
+            <span class="icontext">跳至底部</span>
+        </div>
+    </div>
+    <div class="wrap-right-show">
+        <div class="wrap-right-button set">
+            <div class="iconbox">
+                <span class="iconfont icon-setting"></span>
+            </div>
+            <span class="icontext">设置</span>
+        </div>
+        <div class="wrap-right-button top">
+            <div class="iconbox">
+                <span class="iconfont icon-top"></span>
+            </div>
+            <span class="icontext">返回顶部</span>
+        </div>
+    </div>
+</div>
+    <div class="loading"></div>
+</div>
+    <script>
+    window.config = {
+        GitHubUserName     : "first19326",
+        GitHubRepositories : "Hexo-LiveForCode",
+
+        User             : "Live For Code",
+        UserAvatar       : "/image/sidebar/avatar.jpg",
+        WebsiteStartDate : "2020-01-01",
+        Home             : "https://worstone.cn",
+
+        WebsiteTitleBlur         : "(◍´꒳`◍) Hi, Live For Code",
+        WebsiteTitleBlurTimeOut  : 500,
+        WebsiteTitleFocus        : "(*´∇｀*) 欢迎回来!",
+        WebsiteTitleFocusTimeOut : 1000,
+        WebsiteFavicon           : {
+            light : "/image/website/logo/logo.png",
+            dark  : "/image/website/logo/logo-dark.png"
+        },
+
+        ProgressBar : {
+            id       : "topProgressBar",
+            color    : "#77B6FF",
+            height   : "2px",
+            duration : 0.2
+        },
+
+        Loading: {
+            rebound : {
+                tension  : 16,
+                friction : 5
+            },
+            spinner : {
+                id     : "spinner",
+                radius : 90,
+                sides  : 3,
+                depth  : 4,
+                colors : {
+                    background : "#F0F0F0",
+                    stroke     : "#272633",
+                    base       : "",
+                    child      : "#272633"
+                },
+                alwaysForward : true,
+                restAt        : 0.5,
+                renderBase    : false
+            }
+        },
+
+        HomeHeaderAnimationRendered : true,
+        HomeHeaderAnimation         : {
+            radius      : 15,
+            density     : 0.2,
+            color       : "rgba(255, 255, 255, .2)",
+            clearOffset : 0.3
+        },
+
+        BackAnimationRendered          : true,
+        IEBrowserBackAnimationRendered : false,
+        BackAnimation                  : {
+            colorSaturation  : "60%",
+            colorBrightness  : "50%",
+            colorAlpha       : 0.5,
+            colorCycleSpeed  : 5,
+            verticalPosition : "random",
+            horizontalSpeed  : 200,
+            ribbonCount      : 3,
+            strokeSize       : 0,
+            parallaxAmount   : -0.2,
+            animateSections  : true
+        },
+
+        HomeHeaderImage : [
+            
+                "/image/header/home.jpg",
+            
+                "/image/header/home.jpeg",
+            
+        ],
+        HomeBannerText  : "",
+
+        ArticleHeaderImage : [
+            
+                "/image/header/article.jpg",
+            
+        ],
+
+        OtherBannerText : "",
+
+        Error : {
+            icon    : "icon-swimming",
+            title   : "PAGE NOT FOUND",
+            content : [
+                
+                    "很抱歉，您访问的页面不存在！",
+                
+                    "可能是输入地址有误或该地址已变更。",
+                
+            ],
+            buttons : [
+                
+                    {
+                        icon  : "icon-home",
+                        text  : "返回首页",
+                        href  : "/",
+                        class : ""
+                    },
+                
+            ]
+        },
+
+        MenuNotice : {
+            enable : true,
+            notice : "简单地活着，肆意而又精彩！",
+            speed  : 20
+        },
+        MenuList : [
+            
+                {
+                    name   : "首页",
+                    icon   : "icon-home-fill",
+                    href   : "/",
+                    type   : "index",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "分类",
+                    icon   : "icon-folder-fill",
+                    href   : "/category",
+                    type   : "category",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "标签",
+                    icon   : "icon-discount-fill",
+                    href   : "/tag",
+                    type   : "tag",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "归档",
+                    icon   : "icon-calendar-fill",
+                    href   : "/archive",
+                    type   : "archive",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "赞赏",
+                    icon   : "icon-heart-fill",
+                    href   : "/donate",
+                    type   : "donate",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "关于",
+                    icon   : "icon-about-fill",
+                    href   : "/about",
+                    type   : "about",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "订阅",
+                    icon   : "icon-rss",
+                    href   : "/atom.xml",
+                    type   : "",
+                    class  : "",
+                    target : "_blank"
+                },
+            
+                {
+                    name   : "搜索",
+                    icon   : "icon-search-menu",
+                    href   : "javascript:;",
+                    type   : "",
+                    class  : "search",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "留言板",
+                    icon   : "icon-comments-fill",
+                    href   : "/comment",
+                    type   : "comment",
+                    class  : "",
+                    target : "_self"
+                },
+            
+                {
+                    name   : "友情链接",
+                    icon   : "icon-link",
+                    href   : "/friend",
+                    type   : "friend",
+                    class  : "",
+                    target : "_self"
+                },
+            
+        ],
+        MenuLink : [
+            
+                
+                    {
+                        name   : "知乎",
+                        icon   : "icon-zhihu",
+                        href   : "https://zhihu.com/people/worstone-29",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "微博",
+                        icon   : "icon-weibo",
+                        href   : "https://weibo.com/u/5749847477",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "QQ",
+                        icon   : "icon-qq",
+                        href   : "javascript:;",
+                        class  : "image",
+                        target : "_self",
+                        image  : "/image/sidebar/qq.png"
+                    },
+                
+                    {
+                        name   : "微信",
+                        icon   : "icon-wechat",
+                        href   : "javascript:;",
+                        class  : "",
+                        target : "_self",
+                        image  : ""
+                    },
+                
+                    {
+                        name   : "GitHub",
+                        icon   : "icon-github",
+                        href   : "https://github.com/first19326",
+                        class  : "",
+                        target : "_blank",
+                        image  : ""
+                    },
+                
+            
+        ],
+
+        FooterStyle : 2,
+        BottomText  : "<div><span class='face'>ღゝ◡╹)ノ♡</span></div><div>【人生若只如初见<span><i class='iconfont icon-like-fill'></i></span>何事秋风悲画扇】</div><div>&copy; 2020-2023 WorstOne. All Rights Reserved.</div>",
+
+        ConsoleList : [
+            
+                
+                    [
+                        
+                            
+                                "Based on cnblogs theme SimpleMemory.",
+                            
+                                "",
+                            
+                        
+                    ],
+                
+                    [
+                        
+                            
+                                "SimpleMemory Author:",
+                            
+                                "BNDong",
+                            
+                        
+                    ],
+                
+                    [
+                        
+                            
+                                "Theme:",
+                            
+                                "LiveForCode",
+                            
+                        
+                    ],
+                
+            
+        ],
+
+        FontIconExtend : "",
+
+        Donate : {
+            paypal  : "",
+            bitcoin : "",
+            alipay  : "/image/donate/alipay.png",
+            wechat  : "/image/donate/wechat.png"
+        },
+
+        Search : {
+            applicationID : "010C3EANT8",
+            apiKey        : "c7abab9f11b79102b9aff7fe6d41447d",
+            indexName     : "Notes",
+            hits          : {
+                page : 10
+            },
+            labels        : {
+                placeholder : "搜索",
+                empty       : "未发现与 「${query}」 相关的内容",
+                stats       : "${hits} 条相关条目，使用了 ${time} 毫秒",
+            }
+        }, 
+
+        Comment : {
+            switch : true,
+            type   : "Valine",
+        },
+
+        Waline : {
+            el              : ".comments-content",
+            serverURL       : "",
+            path            : window.location.pathname,
+            meta            : "['nick', 'mail', 'link']",
+            requiredMeta    : "['nick', 'mail']",
+            pageSize        : 10,
+            lang            : "zh-cn",
+            locale: {
+                admin       : "博主",
+                anonymous   : "匿名用户",
+                sofa        : "快来做第一个评论的人吧 ~",
+                placeholder : "你是我一生只会遇见一次的惊喜...",
+            },
+            dark            : "html[color-scheme='dark']",
+            search          : false,
+            pageview        : true,
+            comment         : true,
+            copyright       : false,
+        },
+
+        Valine : {
+            el             : ".comments-content",
+            appId          : "srhKtvWPQTWYKh3qX8G8M7v0-gzGzoHsz",
+            appKey         : "8uVSP1q6UlALVC5igYfIfv2h",
+            serverURLs     : "",
+            placeholder    : "你是我一生只会遇见一次的惊喜...",
+            avatar         : "mm",
+            meta           : "nick,mail,link",
+            requiredFields : "nick,mail",
+            pageSize       : 5,
+            lang           : "zh-cn",
+            visitor        : true,
+            enableQQ       : true
+        },
+
+        Tocbot : {
+            switch                : true,
+            tocSelector           : ".toc",
+            contentSelector       : ".article-body",
+            headingSelector       : "h1, h2, h3, h4, h5",
+            headingsOffset        : 0,
+            scrollSmooth          : true,
+            scrollSmoothOffset    : -5,
+            positionFixedSelector : ".toc",
+            positionFixedClass    : "toc-fixed",
+            fixedSidebarOffset    : "",
+        },
+
+        Require : {
+            baseUrl     : "/js/",
+            waitSeconds : 100
+        },
+
+        Music : {
+            type : "Meting"
+        },
+        APlayer : {
+            container : ".aplayer",
+            fixed     : true,
+            autoplay  : false,
+            loop      : "all",
+            order     : "random",
+            preload   : "auto",
+            volume    : 0.67,
+            mutex     : true,
+            lrcType   : 3,
+            audio     : [
+                
+                    {
+                        name   : "Endless Tears",
+                        artist : "CLIFF EDGE",
+                        cover  : "/music/cover/Endless Tears.jpg",
+                        url    : "/music/song/Endless Tears.mp3",
+                        lrc    : "/music/lrc/Endless Tears.lrc"
+                    },
+                
+            ]
+        },
+        Meting : {
+            api      : "https://api.i-meto.com/meting/api",
+            id       : "3778678", 
+            lrcshow  : false, 
+            server   : "netease", 
+            type     : "playlist", 
+            fixed    : true, 
+            autoplay : false, 
+            loop     : "all", 
+            order    : "random", 
+            preload  : "auto", 
+            volume   : 0.67, 
+            mutex    : true
+        },
+
+        Mouse : {
+            enable  : true,
+            options : {
+                size  : 6,
+                sizeF : 24
+            }
+        },
+
+        LazyLoad : {
+            default : "/image/website/lazyload.svg"
+        },
+  
+        Style : {
+            aplayer          : "/css/APlayer.css",
+            archive          : "/css/archive.css",
+            base             : "/css/base.css",
+            clipboard        : "/css/clipboard.css",
+            code             : "/css/code.css",
+            donate           : "/css/donate.css",
+            fancybox         : "/css/jquery.fancybox.css",
+            footer           : "/css/footer.css",
+            iconfont         : "/iconfont/iconfont.css",
+            index            : "/css/index.css",
+            menuBubble       : "/css/menu-bubble.css",
+            mouse            : "/css/mouse.css",
+            page             : "/css/page.css",
+            post             : "/css/post.css",
+            search           : "/css/search.css",
+            tocbot           : "/css/tocbot.css",
+            valine           : "/css/valine.css",
+            waline           : "/css/waline.css",
+            walineCustom     : "/css/waline-custom.css"
+        },
+
+        Script: {
+            aplayer          : "/js/APlayer.min.js",
+            config           : "/js/require.config.js",
+            index            : "/js/index.js",
+            instantSearch    : "/js/instantsearch.min.js",
+            iscroll          : "/js/iscroll.js",
+            jQuery           : "/js/jquery-3.4.1.min.js",
+            loading          : "/js/loading.js",
+            meting           : "/js/Meting.min.js",
+            require          : "/js/require.min.js",
+            waline           : "/js/waline.mjs",
+            pageview         : "/js/pageview.mjs",
+            comment          : "/js/comment.mjs",
+        },
+
+        Font: {
+            LongCang    : "/font/LongCang.css",
+            Monda       : "/font/Monda.css",
+            NotoSansSC  : "/font/NotoSansSC.css",
+            NotoSerifSC : "/font/NotoSerifSC.css",
+            Playball    : "/font/Playball.css",
+            PTMono      : "/font/PTMono.css",
+            Roboto      : "/font/Roboto.css",
+            RobotoSlab  : "/font/RobotoSlab.css",
+            Rosario     : "/font/Rosario.css",
+            UbuntuMono  : "/font/UbuntuMono.css"
+        },
+
+        Suffix : {
+            about : "简单地活着, 肆意又精彩."
+        },
+            
+        Theme : {
+            url  : "https://github.com/first19326/Hexo-LiveForCode",
+            name : "Hexo - Live For Code"
+        }  
+    };
+</script>
+    <script type="text/javascript" src="/js/index.js"></script>
+</body>
+</html>
